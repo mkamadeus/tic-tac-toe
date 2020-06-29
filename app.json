@@ -1,0 +1,12 @@
+{
+  "name": "tictactoe",
+  "displayName": "Tic Tac Toe",
+  "expo": {
+    "name": "tictactoe",
+    "slug": "expo-template-bare",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
