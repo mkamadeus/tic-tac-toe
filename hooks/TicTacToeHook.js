@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const useTicTacToe = () => {
   const [board, setBoard] = useState([
-    ["X", "", ""],
-    ["", "Y", ""],
-    ["", "", "Z"],
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
   ]);
 
   const checkBoardStatus = () => {
@@ -14,11 +14,19 @@ const useTicTacToe = () => {
 
   const setTile = (row, col, tile) => {
     let tmp = board;
-    tmp[row][col] += tile;
+    tmp[row][col] = tile;
     setBoard([...tmp]);
   };
 
-  return { board, setTile, checkBoardStatus };
+  const resetBoard = () => {
+    setBoard([
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ]);
+  };
+
+  return { board, setTile, checkBoardStatus, resetBoard };
 };
 
 export default useTicTacToe;

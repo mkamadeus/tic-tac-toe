@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { tailwind } from "tailwind";
-
-const TicTacToeBox = (props) => {
-  // const [value, setValue] = useState("");
-
-  return (
-    <View style={styles.box} onTouchEnd={props.onTouch}>
-      <Text style={styles.text}>{props.value}</Text>
-    </View>
-  );
-};
+import Cross from "../assets/cross.svg";
+import Nought from "../assets/nought.svg";
 
 const styles = StyleSheet.create({
-  box: {
+  boxContainer: {
     flex: 1,
-    // aspectRatio: 1,
-    borderColor: "#000",
-    borderBottomWidth: 5,
-    borderLeftWidth: 5,
     height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 5,
+  },
+  box: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#eee",
+    borderRadius: 10,
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -27,5 +25,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
+
+const getBoxDisplay = (value) => {
+  switch (value) {
+    case "x":
+      return <Cross width={50} height={50} />;
+    case "o":
+      return <Nought width={50} height={50} />;
+    default:
+      return null;
+  }
+};
+
+const TicTacToeBox = (props) => {
+  return (
+    <View style={styles.boxContainer} onTouchEnd={props.onTouch}>
+      <View style={styles.box}>{getBoxDisplay(props.value)}</View>
+    </View>
+  );
+};
 
 export default TicTacToeBox;

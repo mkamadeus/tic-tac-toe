@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import { tailwind } from "tailwind";
 import TicTacToeBox from "./TicTacToeBox";
 import useTicTacToe from "../hooks/TicTacToeHook";
 
-const TicTacToe = () => {
-  const { board, setTile, checkBoardStatus } = useTicTacToe();
+const TicTacToe = (props) => {
+  const { board, setTile, checkBoardStatus, resetBoard } = useTicTacToe();
 
   return (
     <View
@@ -13,7 +13,6 @@ const TicTacToe = () => {
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
-        backgroundColor: "#eeeeee",
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
@@ -42,7 +41,8 @@ const TicTacToe = () => {
                     key={`row_${i} col_${j}`}
                     value={box}
                     onTouch={() => {
-                      setTile(i, j, "X");
+                      setTile(i, j, props.turn === 0 ? "x" : "o");
+                      props.onChangeTurn();
                     }}
                   />
                 );
@@ -51,6 +51,7 @@ const TicTacToe = () => {
           );
         })}
       </View>
+      <Button title="meong" onPress={resetBoard} />
     </View>
   );
 };
