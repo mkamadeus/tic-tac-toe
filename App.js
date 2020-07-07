@@ -9,6 +9,7 @@ export default function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(null);
+  const [size, setSize] = useState(4);
 
   const toggleTurn = () => {
     setTurn((turn % 2) + 1);
@@ -45,6 +46,7 @@ export default function App() {
         resetGameState={resetGameState}
         handleSetWinner={(player) => setWinner(player)}
         addAlert={(message) => setAlert(message)}
+        size={size}
       />
       {alertBox}
     </View>

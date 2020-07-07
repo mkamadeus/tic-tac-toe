@@ -1,18 +1,27 @@
 import { useState } from "react";
 
-const useTicTacToe = () => {
-  const [board, setBoard] = useState([
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-  ]);
+const useTicTacToe = (n) => {
+  const generateMatrix = (n) => {
+    let matrix = [];
+    for (let i = 0; i < n; i++) {
+      let arr = [];
+      for (let j = 0; j < n; j++) {
+        arr.push(0);
+      }
+      matrix.push(arr);
+    }
+    return matrix;
+  };
+
+  const [board, setBoard] = useState(generateMatrix(n));
 
   const checkRow = (row, n) => {
     let sum = 0;
     let winner = 0;
     for (let col = 0; col < n; col++) {
+      // console.log(board[row][col]);
       sum += board[row][col];
+      // console.log(sum);
     }
     if (sum === n || sum === -1 * n) {
       winner = sum === n ? 1 : 2;
@@ -86,18 +95,13 @@ const useTicTacToe = () => {
   };
 
   const setTile = (row, col, tile) => {
-    let tmp = board;
-    tmp[row][col] = tile;
-    setBoard([...tmp]);
+    updatedBoard = board;
+    updatedBoard[row][col] = tile;
+    setBoard([...updatedBoard]);
   };
 
   const resetBoard = () => {
-    setBoard([
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-    ]);
+    setBoard(generateMatrix(n));
   };
   return { board, getTile, setTile, checkBoardStatus, resetBoard };
 };

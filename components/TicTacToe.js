@@ -11,7 +11,7 @@ const TicTacToe = (props) => {
     setTile,
     checkBoardStatus,
     resetBoard,
-  } = useTicTacToe();
+  } = useTicTacToe(props.size);
 
   const resetGame = () => {
     props.resetGameState();
@@ -23,7 +23,8 @@ const TicTacToe = (props) => {
       props.addAlert("Invalid Move !! Click on empty space");
     } else {
       setTile(i, j, turn);
-      const result = checkBoardStatus(4);
+      const result = checkBoardStatus(props.size);
+      console.log(result);
       if (result.winner) {
         props.handleSetWinner(result.winner);
       } else {
