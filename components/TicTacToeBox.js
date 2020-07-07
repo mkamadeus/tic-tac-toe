@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
 
 const getBoxDisplay = (value) => {
   switch (value) {
-    case "x":
+    case 1:
       return <Cross width={50} height={50} />;
-    case "o":
+    case -1:
       return <Nought width={50} height={50} />;
     default:
       return null;

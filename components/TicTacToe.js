@@ -5,7 +5,33 @@ import TicTacToeBox from "./TicTacToeBox";
 import useTicTacToe from "../hooks/TicTacToeHook";
 
 const TicTacToe = (props) => {
-  const { board, setTile, checkBoardStatus, resetBoard } = useTicTacToe();
+  const {
+    board,
+    getTile,
+    setTile,
+    checkBoardStatus,
+    resetBoard,
+  } = useTicTacToe(props.size);
+
+  const resetGame = () => {
+    props.resetGameState();
+    resetBoard();
+  };
+
+  const handleSetTile = (i, j, turn) => {
+    if (getTile(i, j) !== 0) {
+      props.addAlert("Invalid Move !! Click on empty space");
+    } else {
+      setTile(i, j, turn);
+      const result = checkBoardStatus(props.size);
+      console.log(result);
+      if (result.winner) {
+        props.handleSetWinner(result.winner);
+      } else {
+        props.onChangeTurn();
+      }
+    }
+  };
 
   return (
     <View
@@ -41,8 +67,7 @@ const TicTacToe = (props) => {
                     key={`row_${i} col_${j}`}
                     value={box}
                     onTouch={() => {
-                      setTile(i, j, props.turn === 0 ? "x" : "o");
-                      props.onChangeTurn();
+                      handleSetTile(i, j, props.turn === 1 ? 1 : -1);
                     }}
                   />
                 );
@@ -51,9 +76,8 @@ const TicTacToe = (props) => {
           );
         })}
       </View>
-      <Button title="meong" onPress={resetBoard} />
+      <Button title="meong" onPress={resetGame} />
     </View>
   );
 };
-
 export default TicTacToe;
