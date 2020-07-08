@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
+    // aspectRatio: 1,
     padding: 5,
   },
   box: {
