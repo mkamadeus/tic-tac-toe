@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { tailwind } from "tailwind";
 import TicTacToe from "../components/TicTacToe";
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const GameScreen = () => {
+const GameScreen = ({ navigation }) => {
   const [turn, setTurn] = useState(1);
   const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState(null);
@@ -45,7 +45,15 @@ const GameScreen = () => {
     {
       icon: <FontAwesome name="home" size={30} color="black" />,
       name: "Home",
-      // onPress:
+      onPress: () => {
+        setModal({
+          show: true,
+          text: "You will lost your tiket if you go back to Home now.",
+          continueAction: () => {
+            window.location.href = "";
+          },
+        });
+      },
     },
     {
       icon: (
