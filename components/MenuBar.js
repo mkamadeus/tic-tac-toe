@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import Home from "../assets/home-outline.svg";
-import Restart from "../assets/refresh-outline.svg";
-import Pay from "../assets/cash-outline.svg";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const styles = StyleSheet.create({
   menuBarContainer: {
@@ -28,10 +26,14 @@ export default ({ menus }) => {
   return (
     <View style={styles.menuBarContainer}>
       {menus.map((menu) => (
-        <View key={menu.name} style={styles.menu}>
+        <TouchableOpacity
+          key={menu.name}
+          style={styles.menu}
+          onPress={menu.onPress}
+        >
           {menu.icon}
           <Text>{menu.name}</Text>
-        </View>
+        </TouchableOpacity>
       ))}
     </View>
   );

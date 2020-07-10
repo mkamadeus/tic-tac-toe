@@ -1,10 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { tailwind } from "tailwind";
 import TicTacToe from "../components/TicTacToe";
 import { FontAwesome, Foundation } from "@expo/vector-icons";
 import MenuBar from "../components/MenuBar";
+import GameModal from "../components/Modal";
 
 const styles = StyleSheet.create({
   container: {
@@ -38,6 +39,7 @@ const GameScreen = () => {
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(null);
   const [size, setSize] = useState(4);
+  const [modal, setModal] = useState({ show: false });
 
   const menus = [
     {
@@ -52,7 +54,6 @@ const GameScreen = () => {
         </View>
       ),
       name: "Size",
-      // onPress:
     },
     {
       icon: <FontAwesome name="dollar" size={30} color="black" />,
@@ -61,12 +62,19 @@ const GameScreen = () => {
     {
       icon: <Foundation name="refresh" size={30} color="black" />,
       name: "Restart",
-      // onPress:
+      onPress: () => {
+        setModal({
+          show: true,
+          text: "You will still lost your tiket if you restart now",
+        });
+      },
     },
     {
       icon: <FontAwesome name="sign-out" size={30} color="black" />,
       name: "Quit",
-      // onPress:
+      onPress: () => {
+        setModal({ show: true, text: "Are you sure you want to quit now ? " });
+      },
     },
   ];
 
@@ -76,8 +84,12 @@ const GameScreen = () => {
 
   const resetGameState = () => {
     setGameStarted(false);
-    setWinner(0);
+    setWinner(null);
     setTurn(1);
+  };
+
+  const removeModal = () => {
+    setModal({ show: false });
   };
 
   let alertBox = null;
@@ -107,6 +119,7 @@ const GameScreen = () => {
         />
       </View>
       <MenuBar menus={menus} />
+      <GameModal modalProps={modal} removeModal={removeModal} />
     </View>
   );
 };
