@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { tailwind } from "tailwind";
 import TicTacToe from "../components/TicTacToe";
+import { FontAwesome, Foundation } from "@expo/vector-icons";
+import MenuBar from "../components/MenuBar";
 
 const styles = StyleSheet.create({
   container: {
@@ -20,6 +22,14 @@ const styles = StyleSheet.create({
   tttContainer: {
     marginVertical: 20,
   },
+  sizeMenu: {
+    display: "flex",
+    borderWidth: 3,
+    borderRadius: 2,
+    paddingHorizontal: 5,
+    textAlign: "center",
+    textAlignVertical: "center",
+  },
 });
 
 const GameScreen = () => {
@@ -27,7 +37,38 @@ const GameScreen = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(null);
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(4);
+
+  const menus = [
+    {
+      icon: <FontAwesome name="home" size={30} color="black" />,
+      name: "Home",
+      // onPress:
+    },
+    {
+      icon: (
+        <View style={styles.sizeMenu}>
+          <Text>3 x 3</Text>
+        </View>
+      ),
+      name: "Size",
+      // onPress:
+    },
+    {
+      icon: <FontAwesome name="dollar" size={30} color="black" />,
+      name: "Tikets",
+    },
+    {
+      icon: <Foundation name="refresh" size={30} color="black" />,
+      name: "Restart",
+      // onPress:
+    },
+    {
+      icon: <FontAwesome name="sign-out" size={30} color="black" />,
+      name: "Quit",
+      // onPress:
+    },
+  ];
 
   const toggleTurn = () => {
     setTurn((turn % 2) + 1);
@@ -65,6 +106,7 @@ const GameScreen = () => {
           size={size}
         />
       </View>
+      <MenuBar menus={menus} />
     </View>
   );
 };

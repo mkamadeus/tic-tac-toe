@@ -34,6 +34,7 @@ const Stack = createStackNavigator();
 //     } else {
 //     }
 //   };
+
 const routes = [
   { name: "Home", screen: require("./screens/HomeScreen").default },
   { name: "Game", screen: require("./screens/GameScreen").default },
