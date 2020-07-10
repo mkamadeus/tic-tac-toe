@@ -35,21 +35,22 @@ const App = () => {
 
   const resetGameState = () => {
     setGameStarted(false);
-    setWinner(0);
+    setWinner(null);
     setTurn(1);
   };
 
-  let alertBox = null;
-  if (alert) {
-    alertBox = (
-      <Text
-        style={tailwind("text-lg font-bold")}
-        onPress={() => setAlert(null)}
-      >
-        {alert}
-      </Text>
-    );
-  }
+  const alertBox = alert && (
+    <Text style={tailwind("text-lg font-bold")} onPress={() => setAlert(null)}>
+      {alert}
+    </Text>
+  );
+
+  const handleSetWinner = (player) => {
+    if (player) {
+      setWinner(player);
+    } else {
+    }
+  };
 
   return (
     <View style={tailwind("flex-1 bg-white p-6 py-12")}>
