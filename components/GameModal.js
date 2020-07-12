@@ -58,6 +58,7 @@ const GameModal = ({ modalProps, removeModal }) => {
             </TouchableOpacity>
             <TouchableOpacity
               style={{ ...styles.btnCancel, backgroundColor: "#5BEE9F" }}
+              onPress={modalProps.continueAction}
             >
               <Text style={styles.btnLabel}>Continue</Text>
             </TouchableOpacity>
