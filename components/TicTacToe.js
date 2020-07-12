@@ -41,8 +41,8 @@ const TicTacToe = (props) => {
     if (props.resetClicked) {
       props.resetGameState();
       resetBoard();
-    } else {
-      console.log("Iniside effect");
+      props.setResetClicked(false);
+      //Kurangin tiket
     }
   }, [props.resetClicked]);
 

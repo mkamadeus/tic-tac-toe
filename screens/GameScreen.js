@@ -145,6 +145,7 @@ const GameScreen = ({ navigation }) => {
           addAlert={(message) => setAlert(message)}
           size={size}
           resetClicked={resetClicked}
+          setResetClicked={setResetClicked}
         />
       </View>
       <MenuBar menus={menus} />
