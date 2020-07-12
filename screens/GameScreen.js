@@ -6,6 +6,7 @@ import TicTacToe from "../components/TicTacToe";
 import { FontAwesome, Foundation } from "@expo/vector-icons";
 import MenuBar from "../components/MenuBar";
 import GameModal from "../components/Modal";
+import { BackHandler } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
@@ -35,11 +36,11 @@ const styles = StyleSheet.create({
 
 const GameScreen = ({ navigation }) => {
   const [turn, setTurn] = useState(1);
-  const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(null);
   const [size, setSize] = useState(4);
   const [modal, setModal] = useState({ show: false });
+  const [resetClicked, setResetClicked] = useState(false);
 
   const menus = [
     {
@@ -50,7 +51,8 @@ const GameScreen = ({ navigation }) => {
           show: true,
           text: "You will lost your tiket if you go back to Home now.",
           continueAction: () => {
-            window.location.href = "";
+            setModal({ show: false });
+            navigation.navigate("Home");
           },
         });
       },
@@ -62,6 +64,12 @@ const GameScreen = ({ navigation }) => {
         </View>
       ),
       name: "Size",
+      onPress: () => {
+        setModal({ show: true, text: "Changing the board size to ...." });
+        continueAction: () => {
+          //Soon
+        };
+      },
     },
     {
       icon: <FontAwesome name="dollar" size={30} color="black" />,
@@ -74,6 +82,10 @@ const GameScreen = ({ navigation }) => {
         setModal({
           show: true,
           text: "You will still lost your tiket if you restart now",
+          continueAction: () => {
+            resetGameState();
+            setModal({ show: false });
+          },
         });
       },
     },
@@ -81,7 +93,14 @@ const GameScreen = ({ navigation }) => {
       icon: <FontAwesome name="sign-out" size={30} color="black" />,
       name: "Quit",
       onPress: () => {
-        setModal({ show: true, text: "Are you sure you want to quit now ? " });
+        setModal({
+          show: true,
+          text: "Are you sure you want to quit now ? ",
+          continueAction: () => {
+            //Need to store tickets first
+            BackHandler.exitApp();
+          },
+        });
       },
     },
   ];
@@ -91,9 +110,10 @@ const GameScreen = ({ navigation }) => {
   };
 
   const resetGameState = () => {
-    setGameStarted(false);
     setWinner(null);
     setTurn(1);
+    setResetClicked(true);
+    //Implementasi kurangin tiket
   };
 
   const removeModal = () => {
@@ -124,6 +144,8 @@ const GameScreen = ({ navigation }) => {
           handleSetWinner={(player) => setWinner(player)}
           addAlert={(message) => setAlert(message)}
           size={size}
+          resetClicked={resetClicked}
+          setResetClicked={setResetClicked}
         />
       </View>
       <MenuBar menus={menus} />
