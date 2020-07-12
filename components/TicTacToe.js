@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import TicTacToeBox from "./TicTacToeBox";
 import useTicTacToe from "../hooks/TicTacToeHook";
@@ -37,10 +37,14 @@ const TicTacToe = (props) => {
     resetBoard,
   } = useTicTacToe(props.size);
 
-  const resetGame = () => {
-    props.resetGameState();
-    resetBoard();
-  };
+  useEffect(() => {
+    if (props.resetClicked) {
+      props.resetGameState();
+      resetBoard();
+    } else {
+      console.log("Iniside effect");
+    }
+  }, [props.resetClicked]);
 
   const handleSetTile = (i, j, turn) => {
     if (getTile(i, j) !== 0) {
