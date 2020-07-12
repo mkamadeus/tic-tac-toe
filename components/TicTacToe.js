@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import TicTacToeBox from "./TicTacToeBox";
 import useTicTacToe from "../hooks/TicTacToeHook";
+import Modal from "./Modal";
 
 const styles = StyleSheet.create({
   gridAnchor: {
@@ -28,38 +29,64 @@ const styles = StyleSheet.create({
   },
 });
 
-const TicTacToe = (props) => {
+const TicTacToe = ({
+  navigation,
+  resetClicked,
+  resetGameState,
+  size,
+  setResetClicked,
+  modal,
+  setModal,
+  winner,
+  onChangeTurn,
+  turn,
+  handleSetWinner,
+  removeModal,
+}) => {
   const {
     board,
     getTile,
     setTile,
     checkBoardStatus,
     resetBoard,
-  } = useTicTacToe(props.size);
+  } = useTicTacToe(size);
+
+  const backToHomeHandler = () => {
+    navigation.navigate("Home");
+    setModal({ show: false });
+  };
 
   useEffect(() => {
-    if (props.resetClicked) {
-      props.resetGameState();
+    if (resetClicked) {
+      resetGameState();
       resetBoard();
-      props.setResetClicked(false);
+      setResetClicked(false);
       //Kurangin tiket
     }
-  }, [props.resetClicked]);
+  }, [resetClicked]);
 
   const handleSetTile = (i, j, turn) => {
     if (getTile(i, j) !== 0) {
-      props.addAlert("Invalid Move !! Click on empty space");
+      // props.addAlert("Invalid Move !! Click on empty space");
     } else {
       setTile(i, j, turn);
-      const result = checkBoardStatus(props.size);
-      if (result.winner) {
-        props.handleSetWinner(result.winner);
+      const result = checkBoardStatus(size);
+      if (result.winner === null) {
+        onChangeTurn();
       } else {
-        if (result.winner === 0) {
-          console.log("DRAW");
-        } else {
-          props.onChangeTurn();
+        let draw = true;
+        if (result.winner > 0) {
+          draw = false;
         }
+        handleSetWinner(result.winner);
+        setModal({
+          show: true,
+          text: draw ? `It's a draw` : `Player ${result.winner} WINS`,
+          continueAction: () => {
+            setResetClicked(true);
+            setModal({ show: false });
+          },
+        });
       }
     }
   };
@@ -83,7 +110,7 @@ const TicTacToe = (props) => {
                       key={`row_${i} col_${j}`}
                       value={box}
                       onTouch={() => {
-                        handleSetTile(i, j, props.turn === 1 ? 1 : -1);
+                        handleSetTile(i, j, turn === 1 ? 1 : -1);
                       }}
                     />
                   );
@@ -93,6 +120,16 @@ const TicTacToe = (props) => {
           })}
         </View>
       </View>
+      <Modal
+        modalProps={modal}
+        removeModal={
+          winner && winner >= 0
+            ? backToHomeHandler
+            : () => setModal({ show: false })
+        }
+        leftButtonText={winner && winner >= 0 ? "Home" : "Cancel"}
+        rightButtonText={winner && winner >= 0 ? "Play again" : "Continue"}
+      />
     </View>
   );
 };

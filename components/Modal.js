@@ -37,7 +37,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ modalProps, removeModal }) => {
+export default ({
+  modalProps,
+  removeModal,
+  leftButtonText,
+  rightButtonText,
+}) => {
   return (
     <Modal visible={modalProps.show} transparent={true} animationType="fade">
       <View
@@ -54,13 +59,13 @@ export default ({ modalProps, removeModal }) => {
           </Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.btnCancel} onPress={removeModal}>
-              <Text style={styles.btnLabel}>Cancel</Text>
+              <Text style={styles.btnLabel}>{leftButtonText}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={{ ...styles.btnCancel, backgroundColor: "#5BEE9F" }}
               onPress={modalProps.continueAction}
             >
-              <Text style={styles.btnLabel}>Continue</Text>
+              <Text style={styles.btnLabel}>{rightButtonText}</Text>
             </TouchableOpacity>
           </View>
         </View>

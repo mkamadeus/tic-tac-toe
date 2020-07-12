@@ -116,21 +116,17 @@ const GameScreen = ({ navigation }) => {
     //Implementasi kurangin tiket
   };
 
-  const removeModal = () => {
-    setModal({ show: false });
-  };
-
-  let alertBox = null;
-  if (alert) {
-    alertBox = (
-      <Text
-        style={tailwind("text-lg font-bold")}
-        onPress={() => setAlert(null)}
-      >
-        {alert}
-      </Text>
-    );
-  }
+  // let alertBox = null;
+  // if (alert) {
+  //   alertBox = (
+  //     <Text
+  //       style={tailwind("text-lg font-bold")}
+  //       onPress={() => setAlert(null)}
+  //     >
+  //       {alert}
+  //     </Text>
+  //   );
+  // }
 
   return (
     <View style={tailwind("flex-1 bg-white p-6 py-12")}>
@@ -146,10 +142,13 @@ const GameScreen = ({ navigation }) => {
           size={size}
           resetClicked={resetClicked}
           setResetClicked={setResetClicked}
+          modal={modal}
+          setModal={setModal}
+          winner={winner}
+          navigation={navigation}
         />
       </View>
       <MenuBar menus={menus} />
-      <GameModal modalProps={modal} removeModal={removeModal} />
     </View>
   );
 };
