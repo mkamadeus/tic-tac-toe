@@ -1,71 +1,93 @@
 import React from "react";
 import { StyleSheet, View, Text, Modal } from "react-native";
-import { TouchableOpacity } from "react-native";
+import { TouchableNativeFeedback } from "react-native";
+import BaseModal from "./BaseModal";
+import Board3x3 from "../assets/3x3.svg";
+import Board4x4 from "../assets/4x4.svg";
+import Board5x5 from "../assets/5x5.svg";
 
 const styles = StyleSheet.create({
-  modalHeader: {
-    flex: 1,
-    backgroundColor: "rgb(80,80,80)",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    marginBottom: 20,
-  },
-  modalContainer: {
-    flexDirection: "column",
-    backgroundColor: "rgba(180,180,180,0.9)",
-    height: "40%",
-    paddingBottom: 20,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  btnCancel: {
-    borderRadius: 10,
-    width: 110,
-    padding: 10,
-    backgroundColor: "#FA8FFC",
-  },
-  btnLabel: {
-    textAlign: "center",
+  promptText: {
     fontWeight: "bold",
     fontSize: 18,
-    color: "#FFFFFF",
   },
-  buttonContainer: {
+  selectionContainer: {
+    width: "100%",
+    padding: 5,
+  },
+  optionContainer: {
+    padding: 5,
+  },
+  option: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 25,
+    alignItems: "center",
+  },
+  optionTextContainer: {
+    padding: 5,
+  },
+  optionText: {
+    fontSize: 16,
   },
 });
 
-const GameModal = ({ modalProps, removeModal }) => {
+const BoardOptions = (props) => {
   return (
-    <Modal visible={modalProps.show} transparent={true} animationType="fade">
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          padding: 25,
-        }}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalHeader} />
-          <Text style={{ flex: 3, marginHorizontal: 25 }}>
-            {modalProps.text}
-          </Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.btnCancel} onPress={removeModal}>
-              <Text style={styles.btnLabel}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ ...styles.btnCancel, backgroundColor: "#5BEE9F" }}
-              onPress={modalProps.continueAction}
-            >
-              <Text style={styles.btnLabel}>Continue</Text>
-            </TouchableOpacity>
-          </View>
+    <TouchableNativeFeedback onPress={props.onPress}>
+      <View style={styles.option}>
+        <View style={styles.optionContainer}>{props.board}</View>
+        <View style={styles.optionTextContainer}>
+          <Text style={styles.optionText}>{props.text}</Text>
         </View>
       </View>
-    </Modal>
+    </TouchableNativeFeedback>
+  );
+};
+
+const GameModal = (props) => {
+  const options = [
+    {
+      icon: <Board3x3 />,
+      text: "3x3",
+      onPress: () => {
+        props.navigation.navigate("Game", { size: 3 });
+      },
+    },
+    {
+      icon: <Board4x4 />,
+      text: "4x4",
+      onPress: () => {
+        props.navigation.navigate("Game", { size: 4 });
+      },
+    },
+    {
+      icon: <Board5x5 />,
+      text: "5x5",
+      onPress: () => {
+        props.navigation.navigate("Game", { size: 5 });
+      },
+    },
+  ];
+
+  return (
+    <BaseModal {...props}>
+      <View>
+        <Text style={styles.promptText}>Select board size:</Text>
+        {options.map((option) => {
+          return (
+            <View
+              style={styles.selectionContainer}
+              key={`${option.text}_option`}
+            >
+              <BoardOptions
+                board={option.icon}
+                text={option.text}
+                onPress={option.onPress}
+              />
+            </View>
+          );
+        })}
+      </View>
+    </BaseModal>
   );
 };
 

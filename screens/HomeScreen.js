@@ -42,6 +42,7 @@ const HomeScreen = (props) => {
           >
             Play
           </HomeButton>
+          <GameModal visible={true} navigation={props.navigation} />
         </View>
         <View>
           <HomeButton

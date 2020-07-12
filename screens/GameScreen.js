@@ -41,7 +41,7 @@ const GameScreen = (props) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(null);
-  const [size, setSize] = useState(4);
+  const [size, setSize] = useState(props.route.params.size);
   const [modal, setModal] = useState({ show: false });
   const [resetClicked, setResetClicked] = useState(false);
 

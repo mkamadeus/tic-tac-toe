@@ -1,67 +1,53 @@
 import React from "react";
-import { StyleSheet, View, Text, Modal, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Modal } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
+import useModal from "../hooks/ModalHook";
 
 const styles = StyleSheet.create({
-  modalHeader: {
+  modalOverlay: {
     flex: 1,
-    backgroundColor: "rgb(80,80,80)",
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    marginBottom: 20,
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0, 0.7)",
+    padding: 25,
+  },
+  modal: {
+    width: "100%",
+    backgroundColor: "#fff",
+    borderRadius: 5,
+  },
+  modalHeader: {
     flexDirection: "column",
-    backgroundColor: "rgba(180,180,180,0.9)",
-    height: "40%",
-    paddingBottom: 20,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
+    alignItems: "flex-end",
+    padding: 15,
+    paddingBottom: 0,
   },
-  btnCancel: {
-    borderRadius: 10,
-    width: 110,
-    padding: 10,
-    backgroundColor: "#FA8FFC",
-  },
-  btnLabel: {
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 18,
-    color: "#FFFFFF",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginHorizontal: 25,
+  modalContent: {
+    padding: 20,
   },
 });
 
-const BaseModal = ({ modalProps, removeModal }) => {
+const BaseModal = (props) => {
+  const [modalOpen, toggleModal] = useModal();
+
   return (
-    <Modal visible={modalProps.show} transparent={true} animationType="fade">
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          padding: 25,
-        }}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalHeader}></View>
-          <Text style={{ flex: 3, marginHorizontal: 25 }}>
-            {modalProps.text}
-          </Text>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.btnCancel} onPress={removeModal}>
-              <Text style={styles.btnLabel}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ ...styles.btnCancel, backgroundColor: "#5BEE9F" }}
-            >
-              <Text style={styles.btnLabel}>Continue</Text>
-            </TouchableOpacity>
+    <Modal
+      visible={modalOpen}
+      transparent={true}
+      animationType="fade"
+      style={styles.modelOverlay}
+    >
+      <View style={styles.modalContainer}>
+        <View style={styles.modal}>
+          <View style={styles.modalHeader}>
+            <FontAwesome name="times" size={24} />
           </View>
+          <View style={styles.modalContent}>{props.children}</View>
         </View>
       </View>
     </Modal>
