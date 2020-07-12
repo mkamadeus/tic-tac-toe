@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ modalProps, removeModal }) => {
+const GameModal = ({ modalProps, removeModal }) => {
   return (
     <Modal visible={modalProps.show} transparent={true} animationType="fade">
       <View
@@ -67,3 +67,5 @@ export default ({ modalProps, removeModal }) => {
     </Modal>
   );
 };
+
+export default GameModal;

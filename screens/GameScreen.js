@@ -5,7 +5,8 @@ import { tailwind } from "tailwind";
 import TicTacToe from "../components/TicTacToe";
 import { FontAwesome, Foundation } from "@expo/vector-icons";
 import MenuBar from "../components/MenuBar";
-import GameModal from "../components/Modal";
+import GameModal from "../components/GameModal";
+import useGame from "../hooks/GameHook";
 
 const styles = StyleSheet.create({
   container: {
@@ -33,62 +34,18 @@ const styles = StyleSheet.create({
   },
 });
 
-const GameScreen = ({ navigation }) => {
-  const [turn, setTurn] = useState(1);
+const GameScreen = (props) => {
+  const { turn, nextTurn } = useGame();
+  // const [turn, setTurn] = useState(1);
   const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(null);
   const [size, setSize] = useState(4);
   const [modal, setModal] = useState({ show: false });
 
-  const menus = [
-    {
-      icon: <FontAwesome name="home" size={30} color="black" />,
-      name: "Home",
-      onPress: () => {
-        setModal({
-          show: true,
-          text: "You will lost your tiket if you go back to Home now.",
-          continueAction: () => {
-            window.location.href = "";
-          },
-        });
-      },
-    },
-    {
-      icon: (
-        <View style={styles.sizeMenu}>
-          <Text>3 x 3</Text>
-        </View>
-      ),
-      name: "Size",
-    },
-    {
-      icon: <FontAwesome name="dollar" size={30} color="black" />,
-      name: "Tikets",
-    },
-    {
-      icon: <Foundation name="refresh" size={30} color="black" />,
-      name: "Restart",
-      onPress: () => {
-        setModal({
-          show: true,
-          text: "You will still lost your tiket if you restart now",
-        });
-      },
-    },
-    {
-      icon: <FontAwesome name="sign-out" size={30} color="black" />,
-      name: "Quit",
-      onPress: () => {
-        setModal({ show: true, text: "Are you sure you want to quit now ? " });
-      },
-    },
-  ];
-
-  const toggleTurn = () => {
-    setTurn((turn % 2) + 1);
-  };
+  // const toggleTurn = () => {
+  //   setTurn((turn % 2) + 1);
+  // };
 
   const resetGameState = () => {
     setGameStarted(false);
@@ -119,14 +76,14 @@ const GameScreen = ({ navigation }) => {
       <View style={styles.tttContainer}>
         <TicTacToe
           turn={turn}
-          onChangeTurn={toggleTurn}
+          onChangeTurn={nextTurn}
           resetGameState={resetGameState}
           handleSetWinner={(player) => setWinner(player)}
           addAlert={(message) => setAlert(message)}
           size={size}
         />
       </View>
-      <MenuBar menus={menus} />
+      <MenuBar />
       <GameModal modalProps={modal} removeModal={removeModal} />
     </View>
   );

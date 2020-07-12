@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { FontAwesome, Foundation } from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
   menuBarContainer: {
@@ -22,7 +23,52 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ({ menus }) => {
+const menus = [
+  {
+    icon: <FontAwesome name="home" size={30} color="black" />,
+    name: "Home",
+    onPress: () => {
+      setModal({
+        show: true,
+        text: "You will lost your tiket if you go back to Home now.",
+        continueAction: () => {
+          window.location.href = "";
+        },
+      });
+    },
+  },
+  {
+    icon: (
+      <View style={styles.sizeMenu}>
+        <Text>3 x 3</Text>
+      </View>
+    ),
+    name: "Size",
+  },
+  {
+    icon: <FontAwesome name="dollar" size={30} color="black" />,
+    name: "Tikets",
+  },
+  {
+    icon: <Foundation name="refresh" size={30} color="black" />,
+    name: "Restart",
+    onPress: () => {
+      setModal({
+        show: true,
+        text: "You will still lost your tiket if you restart now",
+      });
+    },
+  },
+  {
+    icon: <FontAwesome name="sign-out" size={30} color="black" />,
+    name: "Quit",
+    onPress: () => {
+      setModal({ show: true, text: "Are you sure you want to quit now ? " });
+    },
+  },
+];
+
+const MenuBar = () => {
   return (
     <View style={styles.menuBarContainer}>
       {menus.map((menu) => (
@@ -38,3 +84,5 @@ export default ({ menus }) => {
     </View>
   );
 };
+
+export default MenuBar;
