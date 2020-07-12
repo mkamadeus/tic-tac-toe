@@ -19,9 +19,7 @@ const useTicTacToe = (n) => {
     let sum = 0;
     let winner = 0;
     for (let col = 0; col < n; col++) {
-      // console.log(board[row][col]);
       sum += board[row][col];
-      // console.log(sum);
     }
     if (sum === n || sum === -1 * n) {
       winner = sum === n ? 1 : 2;
@@ -67,6 +65,18 @@ const useTicTacToe = (n) => {
     return winner;
   };
 
+  const checkDraw = (n) => {
+    let emptyTile = 0;
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        if (board[i][j] === 0) {
+          emptyTile += 1;
+        }
+      }
+    }
+    return emptyTile === 0;
+  };
+
   const checkBoardStatus = (n) => {
     for (let x = 0; x < n; x++) {
       let rowRes = checkRow(x, n);
@@ -86,6 +96,9 @@ const useTicTacToe = (n) => {
     }
     if (diagRes2) {
       return { winner: diagRes2, direction: "diagonal", index: 2 };
+    }
+    if (checkDraw(n)) {
+      return { winner: 0, direction: "", index: "" };
     }
     return { winner: null, direction: null, index: null };
   };

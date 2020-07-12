@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { tailwind } from "tailwind";
 import TicTacToeBox from "./TicTacToeBox";
 import useTicTacToe from "../hooks/TicTacToeHook";
 
@@ -49,11 +48,14 @@ const TicTacToe = (props) => {
     } else {
       setTile(i, j, turn);
       const result = checkBoardStatus(props.size);
-      console.log(result);
       if (result.winner) {
         props.handleSetWinner(result.winner);
       } else {
-        props.onChangeTurn();
+        if (result.winner === 0) {
+          console.log("DRAW");
+        } else {
+          props.onChangeTurn();
+        }
       }
     }
   };
