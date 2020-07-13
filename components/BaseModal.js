@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Modal } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import useModal from "../hooks/ModalHook";
+import { TouchableNativeFeedback } from "react-native";
 
 const styles = StyleSheet.create({
   modalOverlay: {
@@ -43,7 +44,14 @@ const BaseModal = (props) => {
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
-            <FontAwesome name="times" size={24} />
+            <TouchableNativeFeedback
+              onPress={() => props.setVisibility(false)}
+              background={TouchableNativeFeedback.Ripple("#ddd", true)}
+            >
+              <View>
+                <FontAwesome name="times" size={24} />
+              </View>
+            </TouchableNativeFeedback>
           </View>
           <View style={styles.modalContent}>{props.children}</View>
         </View>

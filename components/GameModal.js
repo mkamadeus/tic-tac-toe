@@ -32,7 +32,10 @@ const styles = StyleSheet.create({
 
 const BoardOptions = (props) => {
   return (
-    <TouchableNativeFeedback onPress={props.onPress}>
+    <TouchableNativeFeedback
+      onPress={props.onPress}
+      background={TouchableNativeFeedback.Ripple("#ddd", false)}
+    >
       <View style={styles.option}>
         <View style={styles.optionContainer}>{props.board}</View>
         <View style={styles.optionTextContainer}>

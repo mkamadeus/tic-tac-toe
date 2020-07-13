@@ -151,8 +151,7 @@ const GameScreen = (props) => {
           setResetClicked={setResetClicked}
         />
       </View>
-      <MenuBar />
-      {/* <GameModal modalProps={modal} removeModal={removeModal} /> */}
+      <MenuBar navigation={props.navigation} />
     </View>
   );
 };

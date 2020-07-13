@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { FontAwesome, Foundation } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Foundation,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
+import GameModal from "./GameModal";
+import useModal from "../hooks/ModalHook";
+import ConfirmationModal from "./ConfirmationModal";
 
 const styles = StyleSheet.create({
   menuBarContainer: {
@@ -9,11 +17,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    padding: 20,
     flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#aaaaaa",
+    justifyContent: "space-evenly",
+    backgroundColor: "#5BE5EE",
   },
   menu: {
     display: "flex",
@@ -23,65 +30,60 @@ const styles = StyleSheet.create({
   },
 });
 
-const menus = [
-  {
-    icon: <FontAwesome name="home" size={30} color="black" />,
-    name: "Home",
-    onPress: () => {
-      setModal({
-        show: true,
-        text: "You will lost your tiket if you go back to Home now.",
-        continueAction: () => {
-          window.location.href = "";
-        },
-      });
+const MenuBar = (props) => {
+  const menus = [
+    {
+      icon: <MaterialIcons name="home" size={35} color="#53BCD3" />,
+      name: "Home",
+      message:
+        "By going to the home screen, the ticket you used will not be returned. Are you sure?",
+      navigateTo: "Home",
     },
-  },
-  {
-    icon: (
-      <View style={styles.sizeMenu}>
-        <Text>3 x 3</Text>
-      </View>
-    ),
-    name: "Size",
-  },
-  {
-    icon: <FontAwesome name="dollar" size={30} color="black" />,
-    name: "Tikets",
-  },
-  {
-    icon: <Foundation name="refresh" size={30} color="black" />,
-    name: "Restart",
-    onPress: () => {
-      setModal({
-        show: true,
-        text: "You will still lost your tiket if you restart now",
-      });
+    {
+      icon: <MaterialCommunityIcons name="ticket" size={35} color="#53BCD3" />,
+      name: "Tickets",
+      message:
+        "By going to the shop, the ticket you used will not be returned. Are you sure?",
+      navigateTo: "Shop",
     },
-  },
-  {
-    icon: <FontAwesome name="sign-out" size={30} color="black" />,
-    name: "Quit",
-    onPress: () => {
-      setModal({ show: true, text: "Are you sure you want to quit now ? " });
+    {
+      icon: <MaterialIcons name="refresh" size={35} color="#53BCD3" />,
+      name: "Restart",
+      message:
+        "By restarting the game, the ticket you used will not be returned. Are you sure?",
+      navigateTo: "Game",
     },
-  },
-];
+  ];
+  const [modalOpen, setModalOpen] = useModal();
+  const [message, setMessage] = useState("");
+  const [acceptCallback, setAcceptCallback] = useState(null);
 
-const MenuBar = () => {
   return (
-    <View style={styles.menuBarContainer}>
-      {menus.map((menu) => (
-        <TouchableOpacity
-          key={menu.name}
-          style={styles.menu}
-          onPress={menu.onPress}
-        >
-          {menu.icon}
-          <Text>{menu.name}</Text>
-        </TouchableOpacity>
-      ))}
-    </View>
+    <>
+      <View style={styles.menuBarContainer}>
+        {menus.map((menu) => (
+          <TouchableOpacity
+            key={menu.name}
+            style={styles.menu}
+            onPress={() => {
+              setMessage(menu.message);
+              setAcceptCallback(menu.navigateTo);
+              setModalOpen(true);
+            }}
+          >
+            {menu.icon}
+          </TouchableOpacity>
+        ))}
+      </View>
+      <ConfirmationModal
+        visible={modalOpen}
+        setVisibility={setModalOpen}
+        message={message}
+        onAccept={() => {
+          props.navigation.navigate(acceptCallback);
+        }}
+      />
+    </>
   );
 };
 
