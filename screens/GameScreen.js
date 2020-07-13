@@ -152,7 +152,7 @@ const GameScreen = (props) => {
         />
       </View>
       <MenuBar />
-      <GameModal modalProps={modal} removeModal={removeModal} />
+      {/* <GameModal modalProps={modal} removeModal={removeModal} /> */}
     </View>
   );
 };

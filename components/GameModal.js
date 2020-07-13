@@ -49,6 +49,7 @@ const GameModal = (props) => {
       icon: <Board3x3 />,
       text: "3x3",
       onPress: () => {
+        props.setVisibility(false);
         props.navigation.navigate("Game", { size: 3 });
       },
     },
@@ -56,6 +57,7 @@ const GameModal = (props) => {
       icon: <Board4x4 />,
       text: "4x4",
       onPress: () => {
+        props.setVisibility(false);
         props.navigation.navigate("Game", { size: 4 });
       },
     },
@@ -63,6 +65,7 @@ const GameModal = (props) => {
       icon: <Board5x5 />,
       text: "5x5",
       onPress: () => {
+        props.setVisibility(false);
         props.navigation.navigate("Game", { size: 5 });
       },
     },

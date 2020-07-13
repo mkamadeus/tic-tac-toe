@@ -33,11 +33,9 @@ const styles = StyleSheet.create({
 });
 
 const BaseModal = (props) => {
-  const [modalOpen, toggleModal] = useModal();
-
   return (
     <Modal
-      visible={modalOpen}
+      visible={props.visible}
       transparent={true}
       animationType="fade"
       style={styles.modelOverlay}

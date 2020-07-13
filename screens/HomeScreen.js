@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreen = (props) => {
-  const [modalOpen, toggleModal] = useModal();
+  const [modalOpen, setModalOpen] = useModal();
 
   return (
     <View style={styles.homeContainer}>
@@ -36,13 +36,17 @@ const HomeScreen = (props) => {
         <View style={{ marginBottom: 15 }}>
           <HomeButton
             onPress={() => {
-              props.navigation.navigate("Game");
+              setModalOpen(true);
             }}
             bgcolor="#5BEE9F"
           >
             Play
           </HomeButton>
-          <GameModal visible={true} navigation={props.navigation} />
+          <GameModal
+            visible={modalOpen}
+            navigation={props.navigation}
+            setVisibility={setModalOpen}
+          />
         </View>
         <View>
           <HomeButton
