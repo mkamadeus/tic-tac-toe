@@ -5,7 +5,8 @@ import { tailwind } from "tailwind";
 import TicTacToe from "../components/TicTacToe";
 import { FontAwesome, Foundation } from "@expo/vector-icons";
 import MenuBar from "../components/MenuBar";
-import GameModal from "../components/Modal";
+import GameModal from "../components/GameModal";
+import useGame from "../hooks/GameHook";
 import { BackHandler } from "react-native";
 
 const styles = StyleSheet.create({
@@ -34,11 +35,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const GameScreen = ({ navigation }) => {
-  const [turn, setTurn] = useState(1);
+const GameScreen = (props) => {
+  const { turn, nextTurn } = useGame();
+  // const [turn, setTurn] = useState(1);
+  const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState(null);
   const [alert, setAlert] = useState(null);
-  const [size, setSize] = useState(4);
+  const [size, setSize] = useState(props.route.params.size);
   const [modal, setModal] = useState({ show: false });
   const [resetClicked, setResetClicked] = useState(false);
 
@@ -105,9 +108,9 @@ const GameScreen = ({ navigation }) => {
     },
   ];
 
-  const toggleTurn = () => {
-    setTurn((turn % 2) + 1);
-  };
+  // const toggleTurn = () => {
+  //   setTurn((turn % 2) + 1);
+  // };
 
   const resetGameState = () => {
     setWinner(null);
@@ -135,7 +138,7 @@ const GameScreen = ({ navigation }) => {
       <View style={styles.tttContainer}>
         <TicTacToe
           turn={turn}
-          onChangeTurn={toggleTurn}
+          onChangeTurn={nextTurn}
           resetGameState={resetGameState}
           handleSetWinner={(player) => setWinner(player)}
           addAlert={(message) => setAlert(message)}
@@ -148,7 +151,7 @@ const GameScreen = ({ navigation }) => {
           navigation={navigation}
         />
       </View>
-      <MenuBar menus={menus} />
+      <MenuBar navigation={props.navigation} />
     </View>
   );
 };

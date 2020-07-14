@@ -2,6 +2,8 @@ import React from "react";
 import { StyleSheet, View, Button, Text, StatusBar } from "react-native";
 import HomeButton from "../components/HomeButton";
 import Logo from "../assets/logo.svg";
+import GameModal from "../components/GameModal";
+import useModal from "../hooks/ModalHook";
 
 const styles = StyleSheet.create({
   homeContainer: {
@@ -21,7 +23,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = (props) => {
+  const [modalOpen, setModalOpen] = useModal();
+
   return (
     <View style={styles.homeContainer}>
       <StatusBar style="auto" backgroundColor="#eee" />
@@ -32,17 +36,22 @@ const HomeScreen = ({ navigation }) => {
         <View style={{ marginBottom: 15 }}>
           <HomeButton
             onPress={() => {
-              navigation.navigate("Game");
+              setModalOpen(true);
             }}
             bgcolor="#5BEE9F"
           >
             Play
           </HomeButton>
+          <GameModal
+            visible={modalOpen}
+            navigation={props.navigation}
+            setVisibility={setModalOpen}
+          />
         </View>
         <View>
           <HomeButton
             onPress={() => {
-              navigation.navigate("Game");
+              props.navigation.navigate("Shop");
             }}
             bgcolor="#FA8FFC"
           >
