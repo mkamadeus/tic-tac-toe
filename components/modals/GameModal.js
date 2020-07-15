@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Modal } from "react-native";
-import { TouchableNativeFeedback } from "react-native";
+import { TouchableOpacity } from "react-native";
 import BaseModal from "./BaseModal";
 import Board3x3 from "../assets/3x3.svg";
 import Board4x4 from "../assets/4x4.svg";
@@ -32,21 +32,19 @@ const styles = StyleSheet.create({
 
 const BoardOptions = (props) => {
   return (
-    <TouchableNativeFeedback
-      onPress={props.onPress}
-      background={TouchableNativeFeedback.Ripple("#ddd", false)}
-    >
+    <TouchableOpacity onPress={props.onPress}>
       <View style={styles.option}>
         <View style={styles.optionContainer}>{props.board}</View>
         <View style={styles.optionTextContainer}>
           <Text style={styles.optionText}>{props.text}</Text>
         </View>
       </View>
-    </TouchableNativeFeedback>
+    </TouchableOpacity>
   );
 };
 
 const GameModal = (props) => {
+  const {}
   const options = [
     {
       icon: <Board3x3 />,
@@ -75,7 +73,7 @@ const GameModal = (props) => {
   ];
 
   return (
-    <BaseModal {...props}>
+    <BaseModal visible={visible} setVisibility={}>
       <View>
         <Text style={styles.promptText}>Select board size:</Text>
         {options.map((option) => {

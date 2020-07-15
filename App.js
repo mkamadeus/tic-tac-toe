@@ -5,36 +5,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
-// const App = () => {
-//   const [turn, setTurn] = useState(1);
-//   const [gameStarted, setGameStarted] = useState(false);
-//   const [winner, setWinner] = useState(null);
-//   const [alert, setAlert] = useState(null);
-//   const [size, setSize] = useState(4);
-
-//   const toggleTurn = () => {
-//     setTurn((turn % 2) + 1);
-//   };
-
-//   const resetGameState = () => {
-//     setGameStarted(false);
-//     setWinner(null);
-//     setTurn(1);
-//   };
-
-//   const alertBox = alert && (
-//     <Text style={tailwind("text-lg font-bold")} onPress={() => setAlert(null)}>
-//       {alert}
-//     </Text>
-//   );
-
-//   const handleSetWinner = (player) => {
-//     if (player) {
-//       setWinner(player);
-//     } else {
-//     }
-//   };
-
 const routes = [
   { name: "Home", screen: require("./screens/HomeScreen").default },
   { name: "Game", screen: require("./screens/GameScreen").default },

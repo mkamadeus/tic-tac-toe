@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Modal } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import useModal from "../hooks/ModalHook";
-import { TouchableNativeFeedback } from "react-native";
+import useModal from "../../hooks/ModalHook";
+import { TouchableOpacity } from "react-native";
 
 const styles = StyleSheet.create({
   modalOverlay: {
@@ -34,9 +34,11 @@ const styles = StyleSheet.create({
 });
 
 const BaseModal = (props) => {
+  const { visible, children, setVisibility } = props;
+
   return (
     <Modal
-      visible={props.visible}
+      visible={visible}
       transparent={true}
       animationType="fade"
       style={styles.modelOverlay}
@@ -44,16 +46,17 @@ const BaseModal = (props) => {
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
-            <TouchableNativeFeedback
-              onPress={() => props.setVisibility(false)}
-              background={TouchableNativeFeedback.Ripple("#ddd", true)}
+            <TouchableOpacity
+              onPress={() => {
+                setVisibility(false);
+              }}
             >
               <View>
                 <FontAwesome name="times" size={24} />
               </View>
-            </TouchableNativeFeedback>
+            </TouchableOpacity>
           </View>
-          <View style={styles.modalContent}>{props.children}</View>
+          <View style={styles.modalContent}>{children}</View>
         </View>
       </View>
     </Modal>

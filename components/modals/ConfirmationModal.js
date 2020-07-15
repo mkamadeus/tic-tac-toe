@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import BaseModal from "./BaseModal";
-import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import ModalButton from "./ModalButton";
+import { ModalContext } from "../../context/ModalContext";
 
 const styles = StyleSheet.create({
   promptContainer: {
@@ -16,26 +16,37 @@ const styles = StyleSheet.create({
 });
 
 const ConfirmationModal = (props) => {
+  const {
+    message,
+    visible,
+    setVisible,
+    leftButtonFunction,
+    rightButtonFunction,
+    setLeftButtonFunction,
+    setRightButtonFunction,
+  } = useContext(ModalContext);
+
   return (
-    <BaseModal {...props}>
+    <BaseModal visible={visible}>
       <View>
         <View style={styles.promptContainer}>
-          <Text>{props.message}</Text>
+          <Text>{message}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <ModalButton
             backgroundColor="#FA8FFC"
             label="Cancel"
             onPress={() => {
-              props.setVisibility(false);
+              setVisible(false);
+              leftButtonFunction();
             }}
           />
           <ModalButton
             backgroundColor="#5BEE9F"
             label="Yes"
             onPress={() => {
-              props.setVisibility(false);
-              props.onAccept();
+              setVisible(false);
+              rightButtonFunction();
             }}
           />
         </View>

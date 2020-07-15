@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { tailwind } from "tailwind";
 import Cross from "../assets/cross.svg";
 import Nought from "../assets/nought.svg";
 

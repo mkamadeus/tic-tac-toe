@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Button, Text, StatusBar } from "react-native";
-import HomeButton from "../components/HomeButton";
+import HomeButton from "../components/home/HomeButton";
 import Logo from "../assets/logo.svg";
-import GameModal from "../components/GameModal";
+import GameModal from "../components/modal/GameModal";
 import useModal from "../hooks/ModalHook";
 
 const styles = StyleSheet.create({

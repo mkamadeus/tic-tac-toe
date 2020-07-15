@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import TicTacToeBox from "./TicTacToeBox";
-import useTicTacToe from "../hooks/TicTacToeHook";
-import Modal from "./Modal";
+import useTicTacToe from "../../hooks/TicTacToeHook";
+import ConfirmationModal from "./ConfirmationModal";
 
 const styles = StyleSheet.create({
   gridAnchor: {
@@ -41,7 +41,6 @@ const TicTacToe = ({
   onChangeTurn,
   turn,
   handleSetWinner,
-  removeModal,
 }) => {
   const {
     board,
@@ -51,10 +50,10 @@ const TicTacToe = ({
     resetBoard,
   } = useTicTacToe(size);
 
-  const backToHomeHandler = () => {
-    navigation.navigate("Home");
-    setModal({ show: false });
-  };
+  // const backToHomeHandler = () => {
+  //   navigation.navigate("Home");
+  //   setModal({ show: false });
+  // };
 
   useEffect(() => {
     if (resetClicked) {
@@ -65,13 +64,14 @@ const TicTacToe = ({
     }
   }, [resetClicked]);
 
-  const handleSetTile = (i, j, turn) => {
-    if (getTile(i, j) !== 0) {
-      // props.addAlert("Invalid Move !! Click on empty space");
-    } else {
+  const onTilePress = (i, j, turn) => {
+    if (getTile(i, j) === 0) {
       setTile(i, j, turn);
       const result = checkBoardStatus(size);
-      if (result.winner === null) {
+
+      // If there is no winner, change turn
+      // Else
+      if (!result) {
         onChangeTurn();
       } else {
         let draw = true;
@@ -81,7 +81,7 @@ const TicTacToe = ({
         handleSetWinner(result.winner);
         setModal({
           show: true,
-          text: draw ? `It's a draw` : `Player ${result.winner} WINS`,
+          text: draw ? `It's a draw` : `Player ${result.winner} wins!`,
           continueAction: () => {
             setResetClicked(true);
             setModal({ show: false });
@@ -110,7 +110,7 @@ const TicTacToe = ({
                       key={`row_${i} col_${j}`}
                       value={box}
                       onTouch={() => {
-                        handleSetTile(i, j, turn === 1 ? 1 : -1);
+                        onTilePress(i, j, turn === 1 ? 1 : -1);
                       }}
                     />
                   );
@@ -120,16 +120,6 @@ const TicTacToe = ({
           })}
         </View>
       </View>
-      <Modal
-        modalProps={modal}
-        removeModal={
-          winner && winner >= 0
-            ? backToHomeHandler
-            : () => setModal({ show: false })
-        }
-        leftButtonText={winner && winner >= 0 ? "Home" : "Cancel"}
-        rightButtonText={winner && winner >= 0 ? "Play again" : "Continue"}
-      />
     </View>
   );
 };

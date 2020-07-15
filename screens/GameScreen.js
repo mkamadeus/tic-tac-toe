@@ -2,19 +2,21 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { tailwind } from "tailwind";
-import TicTacToe from "../components/TicTacToe";
+import TicTacToe from "../components/game/TicTacToe";
 import { FontAwesome, Foundation } from "@expo/vector-icons";
-import MenuBar from "../components/MenuBar";
-import GameModal from "../components/GameModal";
+import MenuBar from "../components/game/MenuBar";
+import GameModal from "../components/modal/GameModal";
 import useGame from "../hooks/GameHook";
 import { BackHandler } from "react-native";
+import { ModalContextProvider } from "../context/ModalContext";
+import ConfirmationModal from "../components/modals/ConfirmationModal";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    padding: 20,
+    marginVertical: 15,
   },
   turnText: {
     fontSize: 30,
@@ -45,73 +47,6 @@ const GameScreen = (props) => {
   const [modal, setModal] = useState({ show: false });
   const [resetClicked, setResetClicked] = useState(false);
 
-  const menus = [
-    {
-      icon: <FontAwesome name="home" size={30} color="black" />,
-      name: "Home",
-      onPress: () => {
-        setModal({
-          show: true,
-          text: "You will lost your tiket if you go back to Home now.",
-          continueAction: () => {
-            setModal({ show: false });
-            navigation.navigate("Home");
-          },
-        });
-      },
-    },
-    {
-      icon: (
-        <View style={styles.sizeMenu}>
-          <Text>3 x 3</Text>
-        </View>
-      ),
-      name: "Size",
-      onPress: () => {
-        setModal({ show: true, text: "Changing the board size to ...." });
-        continueAction: () => {
-          //Soon
-        };
-      },
-    },
-    {
-      icon: <FontAwesome name="dollar" size={30} color="black" />,
-      name: "Tikets",
-    },
-    {
-      icon: <Foundation name="refresh" size={30} color="black" />,
-      name: "Restart",
-      onPress: () => {
-        setModal({
-          show: true,
-          text: "You will still lost your tiket if you restart now",
-          continueAction: () => {
-            resetGameState();
-            setModal({ show: false });
-          },
-        });
-      },
-    },
-    {
-      icon: <FontAwesome name="sign-out" size={30} color="black" />,
-      name: "Quit",
-      onPress: () => {
-        setModal({
-          show: true,
-          text: "Are you sure you want to quit now ? ",
-          continueAction: () => {
-            //Need to store tickets first
-            BackHandler.exitApp();
-          },
-        });
-      },
-    },
-  ];
-
-  // const toggleTurn = () => {
-  //   setTurn((turn % 2) + 1);
-  // };
-
   const resetGameState = () => {
     setWinner(null);
     setTurn(1);
@@ -119,40 +54,31 @@ const GameScreen = (props) => {
     //Implementasi kurangin tiket
   };
 
-  // let alertBox = null;
-  // if (alert) {
-  //   alertBox = (
-  //     <Text
-  //       style={tailwind("text-lg font-bold")}
-  //       onPress={() => setAlert(null)}
-  //     >
-  //       {alert}
-  //     </Text>
-  //   );
-  // }
-
   return (
-    <View style={tailwind("flex-1 bg-white p-6 py-12")}>
-      <StatusBar style="auto" backgroundColor="#eee" />
-      <Text style={styles.turnText}>Player {turn} Move</Text>
-      <View style={styles.tttContainer}>
-        <TicTacToe
-          turn={turn}
-          onChangeTurn={nextTurn}
-          resetGameState={resetGameState}
-          handleSetWinner={(player) => setWinner(player)}
-          addAlert={(message) => setAlert(message)}
-          size={size}
-          resetClicked={resetClicked}
-          setResetClicked={setResetClicked}
-          modal={modal}
-          setModal={setModal}
-          winner={winner}
-          navigation={navigation}
-        />
+    <ModalContextProvider>
+      <View style={styles.container}>
+        <StatusBar style="auto" backgroundColor="#eee" />
+        <Text style={styles.turnText}>Player {turn} Move</Text>
+        <View style={styles.tttContainer}>
+          <TicTacToe
+            turn={turn}
+            onChangeTurn={nextTurn}
+            resetGameState={resetGameState}
+            handleSetWinner={(player) => setWinner(player)}
+            addAlert={(message) => setAlert(message)}
+            size={size}
+            resetClicked={resetClicked}
+            setResetClicked={setResetClicked}
+            modal={modal}
+            setModal={setModal}
+            winner={winner}
+            navigation={props.navigation}
+          />
+        </View>
+        <MenuBar navigation={props.navigation} />
       </View>
-      <MenuBar navigation={props.navigation} />
-    </View>
+      <ConfirmationModal />
+    </ModalContextProvider>
   );
 };
 
