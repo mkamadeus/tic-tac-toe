@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 });
 
 const BaseModal = (props) => {
-  const { visible, children, setVisibility } = props;
+  const { visible, children, setVisible } = props;
 
   return (
     <Modal
@@ -48,7 +48,7 @@ const BaseModal = (props) => {
           <View style={styles.modalHeader}>
             <TouchableOpacity
               onPress={() => {
-                setVisibility(false);
+                setVisible(false);
               }}
             >
               <View>

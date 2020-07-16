@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import TicTacToeBox from "./TicTacToeBox";
 import useTicTacToe from "../../hooks/TicTacToeHook";
-import ConfirmationModal from "./ConfirmationModal";
 
 const styles = StyleSheet.create({
   gridAnchor: {

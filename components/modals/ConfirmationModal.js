@@ -22,8 +22,6 @@ const ConfirmationModal = (props) => {
     setVisible,
     leftButtonFunction,
     rightButtonFunction,
-    setLeftButtonFunction,
-    setRightButtonFunction,
   } = useContext(ModalContext);
 
   return (

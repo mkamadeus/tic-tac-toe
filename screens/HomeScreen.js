@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Button, Text, StatusBar } from "react-native";
 import HomeButton from "../components/home/HomeButton";
 import Logo from "../assets/logo.svg";
-import GameModal from "../components/modal/GameModal";
+import GameModal from "../components/modals/GameModal";
 import useModal from "../hooks/ModalHook";
+import { ModalContextProvider, ModalContext } from "../context/ModalContext";
 
 const styles = StyleSheet.create({
   homeContainer: {
@@ -24,42 +25,44 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreen = (props) => {
-  const [modalOpen, setModalOpen] = useModal();
+  const { visible, setVisible } = useContext(ModalContext);
 
   return (
-    <View style={styles.homeContainer}>
-      <StatusBar style="auto" backgroundColor="#eee" />
-      <View style={styles.logoContainer}>
-        <Logo width={300} height={300} />
-      </View>
-      <View style={styles.buttonContainer}>
-        <View style={{ marginBottom: 15 }}>
-          <HomeButton
-            onPress={() => {
-              setModalOpen(true);
-            }}
-            bgcolor="#5BEE9F"
-          >
-            Play
-          </HomeButton>
-          <GameModal
-            visible={modalOpen}
-            navigation={props.navigation}
-            setVisibility={setModalOpen}
-          />
+    <ModalContextProvider>
+      <View style={styles.homeContainer}>
+        <StatusBar style="auto" backgroundColor="#eee" />
+        <View style={styles.logoContainer}>
+          <Logo width={300} height={300} />
         </View>
-        <View>
-          <HomeButton
-            onPress={() => {
-              props.navigation.navigate("Shop");
-            }}
-            bgcolor="#FA8FFC"
-          >
-            Shop
-          </HomeButton>
+        <View style={styles.buttonContainer}>
+          <View style={{ marginBottom: 15 }}>
+            <HomeButton
+              onPress={() => {
+                setVisible(true);
+              }}
+              bgcolor="#5BEE9F"
+            >
+              Play
+            </HomeButton>
+            <GameModal
+              visible={visible}
+              navigation={props.navigation}
+              setVisible={setVisible}
+            />
+          </View>
+          <View>
+            <HomeButton
+              onPress={() => {
+                props.navigation.navigate("Shop");
+              }}
+              bgcolor="#FA8FFC"
+            >
+              Shop
+            </HomeButton>
+          </View>
         </View>
       </View>
-    </View>
+    </ModalContextProvider>
   );
 };
 

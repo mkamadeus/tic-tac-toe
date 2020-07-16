@@ -1,15 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import {
-  FontAwesome,
-  Foundation,
-  MaterialIcons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
-import GameModal from "./GameModal";
-import useModal from "../../hooks/ModalHook";
-import ConfirmationModal from "./ConfirmationModal";
+import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { ModalContext } from "../../context/ModalContext";
 
 const styles = StyleSheet.create({

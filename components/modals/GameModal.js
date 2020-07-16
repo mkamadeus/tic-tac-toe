@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, View, Text, Modal } from "react-native";
 import { TouchableOpacity } from "react-native";
 import BaseModal from "./BaseModal";
-import Board3x3 from "../assets/3x3.svg";
-import Board4x4 from "../assets/4x4.svg";
-import Board5x5 from "../assets/5x5.svg";
+import Board3x3 from "../../assets/3x3.svg";
+import Board4x4 from "../../assets/4x4.svg";
+import Board5x5 from "../../assets/5x5.svg";
+import { ModalContext } from "../../context/ModalContext";
 
 const styles = StyleSheet.create({
   promptText: {
@@ -44,13 +45,13 @@ const BoardOptions = (props) => {
 };
 
 const GameModal = (props) => {
-  const {}
+  const { visible, setVisible } = useContext(ModalContext);
   const options = [
     {
       icon: <Board3x3 />,
       text: "3x3",
       onPress: () => {
-        props.setVisibility(false);
+        props.setVisible(false);
         props.navigation.navigate("Game", { size: 3 });
       },
     },
@@ -58,7 +59,7 @@ const GameModal = (props) => {
       icon: <Board4x4 />,
       text: "4x4",
       onPress: () => {
-        props.setVisibility(false);
+        props.setVisible(false);
         props.navigation.navigate("Game", { size: 4 });
       },
     },
@@ -66,14 +67,14 @@ const GameModal = (props) => {
       icon: <Board5x5 />,
       text: "5x5",
       onPress: () => {
-        props.setVisibility(false);
+        props.setVisible(false);
         props.navigation.navigate("Game", { size: 5 });
       },
     },
   ];
 
   return (
-    <BaseModal visible={visible} setVisibility={}>
+    <BaseModal visible={visible} setVisible={setVisible}>
       <View>
         <Text style={styles.promptText}>Select board size:</Text>
         {options.map((option) => {

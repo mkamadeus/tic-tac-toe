@@ -1,11 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { tailwind } from "tailwind";
 import TicTacToe from "../components/game/TicTacToe";
 import { FontAwesome, Foundation } from "@expo/vector-icons";
 import MenuBar from "../components/game/MenuBar";
-import GameModal from "../components/modal/GameModal";
+import GameModal from "../components/modals/GameModal";
 import useGame from "../hooks/GameHook";
 import { BackHandler } from "react-native";
 import { ModalContextProvider } from "../context/ModalContext";
