@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, StatusBar} from 'react-native';
 
 import HomeButton from '../components/home/HomeButton';
@@ -9,6 +9,7 @@ import GameModal from '../components/modals/GameModal';
 
 const HomeScreen = (props) => {
   const {navigation} = props;
+  const [visible, setVisible] = useState(false);
   // const { visible, setVisible } = useContext(ModalContext);
 
   return (
@@ -37,6 +38,11 @@ const HomeScreen = (props) => {
           </HomeButton>
         </View>
       </View>
+      <GameModal
+        visible={visible}
+        setVisible={setVisible}
+        navigation={navigation}
+      />
     </View>
   );
 };

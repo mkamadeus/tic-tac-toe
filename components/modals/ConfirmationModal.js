@@ -1,16 +1,16 @@
-import React, { useContext } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import BaseModal from "./BaseModal";
-import ModalButton from "./ModalButton";
-import { ModalContext } from "../../context/ModalContext";
+import React, {useContext} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
+import BaseModal from './BaseModal';
+import ModalButton from './ModalButton';
+import {ModalContext} from '../../context/ConfirmationModalContext';
 
 const styles = StyleSheet.create({
   promptContainer: {
     padding: 10,
   },
   buttonContainer: {
-    justifyContent: "space-evenly",
-    flexDirection: "row",
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
     padding: 5,
   },
 });

@@ -1,30 +1,30 @@
-import React from "react";
-import { StyleSheet, View, Modal } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
-import useModal from "../../hooks/ModalHook";
-import { TouchableOpacity } from "react-native";
+import React from 'react';
+import {StyleSheet, View, Modal} from 'react-native';
+import useModal from '../../hooks/ModalHook';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {TouchableOpacity} from 'react-native';
 
 const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0,0,0, 0.7)",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0, 0.7)',
     padding: 25,
   },
   modal: {
-    width: "100%",
-    backgroundColor: "#fff",
+    width: '100%',
+    backgroundColor: '#fff',
     borderRadius: 5,
   },
   modalHeader: {
-    flexDirection: "column",
-    alignItems: "flex-end",
+    flexDirection: 'column',
+    alignItems: 'flex-end',
     padding: 15,
     paddingBottom: 0,
   },
@@ -34,25 +34,28 @@ const styles = StyleSheet.create({
 });
 
 const BaseModal = (props) => {
-  const { visible, children, setVisible } = props;
+  const {visible, children, setVisible} = props;
 
   return (
     <Modal
       visible={visible}
       transparent={true}
       animationType="fade"
-      style={styles.modelOverlay}
-    >
+      style={styles.modelOverlay}>
       <View style={styles.modalContainer}>
         <View style={styles.modal}>
           <View style={styles.modalHeader}>
             <TouchableOpacity
               onPress={() => {
                 setVisible(false);
-              }}
-            >
+              }}>
               <View>
-                <FontAwesome name="times" size={24} />
+                <FontAwesomeIcon
+                  icon={
+                    require('@fortawesome/free-solid-svg-icons/faTimes').faTimes
+                  }
+                  size={24}
+                />
               </View>
             </TouchableOpacity>
           </View>
