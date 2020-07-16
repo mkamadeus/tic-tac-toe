@@ -119,7 +119,7 @@ const useTicTacToe = (n) => {
     setBoard(generateMatrix());
   };
 
-  return {board, getTile, setTile, checkBoardStatus, resetBoard};
+  return {board, getTile, setTile, checkDraw, checkBoardStatus, resetBoard};
 };
 
 export default useTicTacToe;
