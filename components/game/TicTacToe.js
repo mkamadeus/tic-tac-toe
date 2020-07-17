@@ -1,13 +1,13 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import TicTacToeBox from './TicTacToeBox';
-import useTicTacToe from '../../hooks/TicTacToeHook';
 import useGame from '../../hooks/GameHook';
+import {GameScreenContext} from '../../context/GameScreenContext';
 
-const TicTacToe = (props) => {
-  const {navigation, size} = props;
-
-  const {board, turn, onTilePress, winner, resetBoard} = useGame(size);
+const TicTacToe = () => {
+  const {board, turn, onTilePress, winner, resetBoard} = useContext(
+    GameScreenContext,
+  );
 
   return (
     <View style={styles.gridAnchor}>

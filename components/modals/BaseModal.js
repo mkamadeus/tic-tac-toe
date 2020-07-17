@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Modal} from 'react-native';
-import useModal from '../../hooks/ModalHook';
+import useModal from '../../hooks/ConfirmationModalHook';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {TouchableOpacity} from 'react-native';
 

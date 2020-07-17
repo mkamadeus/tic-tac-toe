@@ -25,7 +25,11 @@ const App = () => {
           component={HomeScreen}
           options={{headerShown: false}}
         />
-        {/* <Stack.Screen name="Game" component={<GameScreen />} /> */}
+        <Stack.Screen
+          name="Game"
+          component={GameScreen}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="Shop"
           component={ShopScreen}

@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 // import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {ModalContext} from '../../context/ConfirmationModalContext';
+import {GameScreenContext} from '../../context/GameScreenContext';
 
 const styles = StyleSheet.create({
   menuBarContainer: {
@@ -25,12 +25,9 @@ const styles = StyleSheet.create({
 });
 
 const MenuBar = (props) => {
-  const {
-    setMessage,
-    setLeftButtonFunction,
-    setRightButtonFunction,
-    setVisible,
-  } = useContext(ModalContext);
+  const {navigation, showConfirmationModal, hideConfirmationModal} = useContext(
+    GameScreenContext,
+  );
 
   const menus = [
     {
@@ -45,7 +42,7 @@ const MenuBar = (props) => {
       message:
         'By going to the home screen, the ticket you used will not be returned. Are you sure?',
       rightButtonFunction: function () {
-        props.navigation.navigate('Home');
+        navigation.navigate('Home');
       },
     },
     {
@@ -61,7 +58,7 @@ const MenuBar = (props) => {
         'By going to the shop, the ticket you used will not be returned. Are you sure?',
       navigateTo: 'Shop',
       rightButtonFunction: function () {
-        props.navigation.navigate('Shop');
+        navigation.navigate('Shop');
       },
     },
     {
@@ -77,7 +74,7 @@ const MenuBar = (props) => {
         'By restarting the game, the ticket you used will not be returned. Are you sure?',
       navigateTo: 'Game',
       rightButtonFunction: function () {
-        props.navigation.navigate('Game');
+        navigation.navigate('Game');
       },
     },
   ];
@@ -90,9 +87,11 @@ const MenuBar = (props) => {
             key={menu.name}
             style={styles.menu}
             onPress={() => {
-              setMessage(menu.message);
-              setRightButtonFunction(menu.rightButtonFunction);
-              setVisible(true);
+              showConfirmationModal(
+                hideConfirmationModal,
+                menu.rightButtonFunction,
+                menu.message,
+              );
             }}>
             {menu.icon}
           </TouchableOpacity>
