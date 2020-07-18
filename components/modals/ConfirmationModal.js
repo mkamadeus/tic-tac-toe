@@ -1,21 +1,13 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import BaseModal from './BaseModal';
 import ModalButton from './ModalButton';
-import {GameScreenContext} from '../../context/GameScreenContext';
 
 const ConfirmationModal = (props) => {
-  const {
-    message,
-    visible,
-    leftButtonFunction,
-    rightButtonFunction,
-    showConfirmationModal,
-    hideConfirmationModal,
-  } = useContext(GameScreenContext);
+  const {visible, setVisible, message, rightButtonFunction} = props;
 
   return (
-    <BaseModal visible={visible}>
+    <BaseModal visible={visible} setVisible={setVisible}>
       <View>
         <View style={styles.promptContainer}>
           <Text>{message}</Text>
@@ -25,15 +17,18 @@ const ConfirmationModal = (props) => {
             backgroundColor="#FA8FFC"
             label="Cancel"
             onPress={() => {
-              hideConfirmationModal();
+              setVisible(false);
+              // hideConfirmationModal();
             }}
           />
           <ModalButton
             backgroundColor="#5BEE9F"
             label="Yes"
             onPress={() => {
-              hideConfirmationModal();
-              rightButtonFunction();
+              setVisible(false);
+
+              // hideConfirmationModal();
+              rightButtonFunction.func();
             }}
           />
         </View>

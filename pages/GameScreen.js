@@ -7,26 +7,45 @@ import GameModal from '../components/modals/GameModal';
 import useGame from '../hooks/GameHook';
 import {BackHandler} from 'react-native';
 import ConfirmationModal from '../components/modals/ConfirmationModal';
-import {
-  GameScreenContextProvider,
-  GameScreenContext,
-} from '../context/GameScreenContext';
+import useConfirmationModal from '../hooks/ConfirmationModalHook';
 
 const GameScreen = (props) => {
-  const {navigation, route} = props;
-  // const {turn} = useContext(GameScreenContext);
+  const {route} = props;
+  const size = route.params.size;
+  const [
+    visible,
+    setVisible,
+    message,
+    setMessage,
+    leftButtonFunction,
+    setLeftButtonFunction,
+    rightButtonFunction,
+    setRightButtonFunction,
+  ] = useConfirmationModal();
+  const {board, turn, onTilePress, winner, resetBoard} = useGame(size);
 
   return (
-    <GameScreenContextProvider navigation={navigation} size={route.params.size}>
+    <>
       <View style={styles.container}>
         <Text style={styles.turnText}>Player X Move</Text>
         <View style={styles.tttContainer}>
-          <TicTacToe />
+          <TicTacToe board={board} onTilePress={onTilePress} turn={turn} />
         </View>
-        <MenuBar navigation={props.navigation} />
+        <MenuBar
+          setRightButtonFunction={setRightButtonFunction}
+          setLeftButtonFunction={setLeftButtonFunction}
+          setMessage={setMessage}
+          setVisible={setVisible}
+        />
       </View>
-      <ConfirmationModal />
-    </GameScreenContextProvider>
+      <ConfirmationModal
+        visible={visible}
+        setVisible={setVisible}
+        message={message}
+        setMessage={setMessage}
+        rightButtonFunction={rightButtonFunction}
+      />
+    </>
   );
 };
 

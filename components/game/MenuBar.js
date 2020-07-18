@@ -1,9 +1,55 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 // import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {GameScreenContext} from '../../context/GameScreenContext';
+import {useNavigation} from '@react-navigation/native';
+
+const MenuBar = (props) => {
+  const {
+    setVisible,
+    setMessage,
+    setLeftButtonFunction,
+    setRightButtonFunction,
+  } = props;
+  const navigation = useNavigation();
+
+  return (
+    <>
+      <View style={styles.menuBarContainer}>
+        <TouchableOpacity
+          style={styles.menu}
+          onPress={() => {
+            setLeftButtonFunction({
+              func: () => {
+                setVisible(false);
+              },
+            });
+            setRightButtonFunction({
+              func: () => {
+                console.log('pisang 1');
+                setTimeout(() => {
+                  console.log('pisang 2');
+                  navigation.navigate('Home');
+                }, 1000);
+              },
+            });
+            console.log('pisang 3');
+            setMessage(
+              'By going to the home screen, the ticket you used will not be returned. Are you sure?',
+            );
+            setVisible(true);
+          }}>
+          <FontAwesomeIcon
+            icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
+            size={35}
+            color="#53BCD3"
+          />
+        </TouchableOpacity>
+      </View>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   menuBarContainer: {
@@ -23,82 +69,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-const MenuBar = (props) => {
-  const {navigation, showConfirmationModal, hideConfirmationModal} = useContext(
-    GameScreenContext,
-  );
-
-  const menus = [
-    {
-      icon: (
-        <FontAwesomeIcon
-          icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
-          size={35}
-          color="#53BCD3"
-        />
-      ),
-      name: 'Home',
-      message:
-        'By going to the home screen, the ticket you used will not be returned. Are you sure?',
-      rightButtonFunction: function () {
-        navigation.navigate('Home');
-      },
-    },
-    {
-      icon: (
-        <FontAwesomeIcon
-          icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
-          size={35}
-          color="#53BCD3"
-        />
-      ),
-      name: 'Tickets',
-      message:
-        'By going to the shop, the ticket you used will not be returned. Are you sure?',
-      navigateTo: 'Shop',
-      rightButtonFunction: function () {
-        navigation.navigate('Shop');
-      },
-    },
-    {
-      icon: (
-        <FontAwesomeIcon
-          icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
-          size={35}
-          color="#53BCD3"
-        />
-      ),
-      name: 'Restart',
-      message:
-        'By restarting the game, the ticket you used will not be returned. Are you sure?',
-      navigateTo: 'Game',
-      rightButtonFunction: function () {
-        navigation.navigate('Game');
-      },
-    },
-  ];
-
-  return (
-    <>
-      <View style={styles.menuBarContainer}>
-        {menus.map((menu) => (
-          <TouchableOpacity
-            key={menu.name}
-            style={styles.menu}
-            onPress={() => {
-              showConfirmationModal(
-                hideConfirmationModal,
-                menu.rightButtonFunction,
-                menu.message,
-              );
-            }}>
-            {menu.icon}
-          </TouchableOpacity>
-        ))}
-      </View>
-    </>
-  );
-};
 
 export default MenuBar;
