@@ -1,15 +1,22 @@
 import React from 'react';
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faTicketAlt} from '@fortawesome/free-solid-svg-icons';
 
 const ShopItem = (props) => {
-  const {name, count, price} = props;
+  const {name, count, price, onPress} = props;
   return (
-    <TouchableOpacity onPress={() => {}}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.shopItemContainer}>
-        <Text style={styles.itemName}>
-          {name} ({count})
-        </Text>
-        <Text style={styles.itemCount}>{price}</Text>
+        <View style={styles.iconContainer}>
+          <FontAwesomeIcon icon={faTicketAlt} size={30} color={'#FA8FFC'} />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.itemName}>
+            {name} ({count})
+          </Text>
+          <Text style={styles.itemCount}>{price}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -17,9 +24,8 @@ const ShopItem = (props) => {
 
 const styles = StyleSheet.create({
   shopItemContainer: {
-    // flex: 1,
-    // flexDirection: 'row',
-    padding: 20,
+    flexDirection: 'row',
+    padding: 10,
   },
   itemName: {
     fontSize: 20,
@@ -27,6 +33,17 @@ const styles = StyleSheet.create({
   },
   itemCount: {
     color: '#aaa',
+  },
+  iconContainer: {
+    flex: 1,
+    aspectRatio: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // padding: 2,
+  },
+  textContainer: {
+    flex: 4,
+    padding: 5,
   },
 });
 

@@ -1,20 +1,19 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, StatusBar} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 
 import HomeButton from '../components/home/HomeButton';
 import HomeLogo from '../components/home/HomeLogo';
 import GameModal from '../components/modals/GameModal';
-
-// import { ModalContextProvider, ModalContext } from "../context/ModalContext";
+import {TicketContextProvider} from '../context/TicketContext';
+import HomeTicket from '../components/home/HomeTicket';
 
 const HomeScreen = (props) => {
   const {navigation} = props;
   const [visible, setVisible] = useState(false);
-  // const { visible, setVisible } = useContext(ModalContext);
 
   return (
     <View style={styles.homeContainer}>
-      <StatusBar style="auto" backgroundColor="#ddd" />
+      <HomeTicket />
       <View style={styles.logoContainer}>
         <HomeLogo />
       </View>

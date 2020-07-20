@@ -14,35 +14,40 @@ import HomeScreen from './pages/HomeScreen';
 import GameScreen from './pages/GameScreen';
 import ShopScreen from './pages/ShopScreen';
 import WinScreen from './pages/WinScreen';
+import {TicketContextProvider} from './context/TicketContext';
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Game"
-          component={GameScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Shop"
-          component={ShopScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Win"
-          component={WinScreen}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <TicketContextProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Game"
+            component={GameScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Shop"
+            component={ShopScreen}
+            options={{
+              headerTitle: 'Ticket Shop',
+            }}
+          />
+          <Stack.Screen
+            name="Win"
+            component={WinScreen}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </TicketContextProvider>
   );
 };
 
