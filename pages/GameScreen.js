@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import TicTacToe from '../components/game/TicTacToe';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -10,7 +10,7 @@ import ConfirmationModal from '../components/modals/ConfirmationModal';
 import useConfirmationModal from '../hooks/ConfirmationModalHook';
 
 const GameScreen = (props) => {
-  const {route} = props;
+  const {navigation, route} = props;
   const size = route.params.size;
   const [
     visible,
@@ -24,10 +24,17 @@ const GameScreen = (props) => {
   ] = useConfirmationModal();
   const {board, turn, onTilePress, winner, resetBoard} = useGame(size);
 
+  useEffect(() => {
+    if (winner) {
+      console.log(`Player ${turn} won!`);
+      navigation.navigate('Win', {winner});
+    }
+  }, [navigation, turn, winner]);
+
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.turnText}>Player X Move</Text>
+        <Text style={styles.turnText}>Player {turn} Move</Text>
         <View style={styles.tttContainer}>
           <TicTacToe board={board} onTilePress={onTilePress} turn={turn} />
         </View>

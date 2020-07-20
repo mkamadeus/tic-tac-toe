@@ -14,10 +14,43 @@ const MenuBar = (props) => {
   } = props;
   const navigation = useNavigation();
 
+  const menus = [
+    {
+      icon: (
+        <FontAwesomeIcon
+          icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
+          size={35}
+          color="#53BCD3"
+        />
+      ),
+      name: 'Home',
+      message:
+        'By going to the home screen, the ticket you used will not be returned. Are you sure?',
+      rightButtonFunction: function () {
+        props.navigation.navigate('Home');
+      },
+    },
+    {
+      icon: (
+        <FontAwesomeIcon
+          icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
+          size={35}
+          color="#53BCD3"
+        />
+      ),
+      name: 'Tickets',
+      message:
+        'By quitting the game, your game will not be saved and the tickets will not be returned. Are you sure?',
+      rightButtonFunction: function () {
+        props.navigation.navigate('Shop');
+      },
+    },
+  ];
+
   return (
     <>
       <View style={styles.menuBarContainer}>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.menu}
           onPress={() => {
             setLeftButtonFunction({
@@ -45,7 +78,30 @@ const MenuBar = (props) => {
             size={35}
             color="#53BCD3"
           />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        {menus.map((menu) => (
+          <TouchableOpacity
+            key={menu.name}
+            style={styles.menu}
+            onPress={() => {
+              setLeftButtonFunction({
+                func: () => {
+                  setVisible(false);
+                },
+              });
+              setRightButtonFunction({
+                func: () => {
+                  navigation.navigate('Home');
+                },
+              });
+              setMessage(
+                'By going to the home screen, the ticket you used will not be returned. Are you sure?',
+              );
+              setVisible(true);
+            }}>
+            {menu.icon}
+          </TouchableOpacity>
+        ))}
       </View>
     </>
   );

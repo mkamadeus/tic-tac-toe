@@ -13,6 +13,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './pages/HomeScreen';
 import GameScreen from './pages/GameScreen';
 import ShopScreen from './pages/ShopScreen';
+import WinScreen from './pages/WinScreen';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +34,11 @@ const App = () => {
         <Stack.Screen
           name="Shop"
           component={ShopScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Win"
+          component={WinScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
