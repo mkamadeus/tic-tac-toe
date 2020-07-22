@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 
 import HomeButton from '../components/home/HomeButton';
 import HomeLogo from '../components/home/HomeLogo';
 import GameModal from '../components/modals/GameModal';
-import {TicketContextProvider} from '../context/TicketContext';
 import HomeTicket from '../components/home/HomeTicket';
+import {TicketContext} from '../context/TicketContext';
 
 const HomeScreen = (props) => {
   const {navigation} = props;
   const [visible, setVisible] = useState(false);
+  const {ticket} = useContext(TicketContext);
 
   return (
     <View style={styles.homeContainer}>
@@ -23,8 +24,9 @@ const HomeScreen = (props) => {
             onPress={() => {
               setVisible(true);
             }}
-            bgcolor="#5BEE9F">
-            Play
+            disabled={ticket <= 0}
+            bgcolor={`${ticket > 0 ? '#5BEE9F' : '#ccebdb'}`}>
+            {`${ticket > 0 ? 'Play' : 'Ticket required to play!'}`}
           </HomeButton>
         </View>
         <View style={styles.buttonContainer}>

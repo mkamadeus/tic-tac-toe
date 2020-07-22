@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Button} from 'react-native';
 import TicTacToeBox from './TicTacToeBox';
 
 const TicTacToe = (props) => {
-  const {board, onTilePress, turn} = props;
+  const {board, onTilePress, turn, size} = props;
   return (
     <View style={styles.gridAnchor}>
       <View style={styles.gridContainer}>
@@ -21,6 +21,7 @@ const TicTacToe = (props) => {
                     <TicTacToeBox
                       key={`row_${i} col_${j}`}
                       value={box}
+                      size={150 / size}
                       onTouch={() => {
                         onTilePress(i, j, turn);
                       }}

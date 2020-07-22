@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import AsyncStorage, {
-  useAsyncStorage,
-} from '@react-native-community/async-storage';
+import {useEffect, useState} from 'react';
+import {useAsyncStorage} from '@react-native-community/async-storage';
 
 const useTicket = () => {
   const {getItem, setItem} = useAsyncStorage('ticket');
@@ -26,11 +24,11 @@ const useTicket = () => {
   }, [getItem, setItem, ticket]);
 
   const addTicket = async (amount) => {
-    setTicket(parseInt(ticket) + amount);
+    setTicket(parseInt(ticket, 10) + amount);
   };
 
   const removeTicket = async (amount) => {
-    setTicket(parseInt(ticket) - amount);
+    setTicket(parseInt(ticket, 10) - amount);
   };
 
   return [ticket, addTicket, removeTicket];

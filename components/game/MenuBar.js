@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 // import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, CommonActions} from '@react-navigation/native';
 
 const MenuBar = (props) => {
   const {
@@ -26,23 +26,39 @@ const MenuBar = (props) => {
       name: 'Home',
       message:
         'By going to the home screen, the ticket you used will not be returned. Are you sure?',
-      rightButtonFunction: function () {
-        props.navigation.navigate('Home');
+      rightButtonFunction: {
+        func: function () {
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [
+                {
+                  name: 'Home',
+                },
+              ],
+            }),
+          );
+        },
       },
     },
     {
       icon: (
         <FontAwesomeIcon
-          icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
+          icon={
+            require('@fortawesome/free-solid-svg-icons/faSignOutAlt')
+              .faSignOutAlt
+          }
           size={35}
           color="#53BCD3"
         />
       ),
-      name: 'Tickets',
+      name: 'Quit',
       message:
         'By quitting the game, your game will not be saved and the tickets will not be returned. Are you sure?',
-      rightButtonFunction: function () {
-        props.navigation.navigate('Shop');
+      rightButtonFunction: {
+        func: function () {
+          navigation.navigate('Shop');
+        },
       },
     },
   ];
@@ -50,35 +66,6 @@ const MenuBar = (props) => {
   return (
     <>
       <View style={styles.menuBarContainer}>
-        {/* <TouchableOpacity
-          style={styles.menu}
-          onPress={() => {
-            setLeftButtonFunction({
-              func: () => {
-                setVisible(false);
-              },
-            });
-            setRightButtonFunction({
-              func: () => {
-                console.log('pisang 1');
-                setTimeout(() => {
-                  console.log('pisang 2');
-                  navigation.navigate('Home');
-                }, 1000);
-              },
-            });
-            console.log('pisang 3');
-            setMessage(
-              'By going to the home screen, the ticket you used will not be returned. Are you sure?',
-            );
-            setVisible(true);
-          }}>
-          <FontAwesomeIcon
-            icon={require('@fortawesome/free-solid-svg-icons/faHome').faHome}
-            size={35}
-            color="#53BCD3"
-          />
-        </TouchableOpacity> */}
         {menus.map((menu) => (
           <TouchableOpacity
             key={menu.name}
@@ -89,14 +76,8 @@ const MenuBar = (props) => {
                   setVisible(false);
                 },
               });
-              setRightButtonFunction({
-                func: () => {
-                  navigation.navigate('Home');
-                },
-              });
-              setMessage(
-                'By going to the home screen, the ticket you used will not be returned. Are you sure?',
-              );
+              setRightButtonFunction(menu.rightButtonFunction);
+              setMessage(menu.message);
               setVisible(true);
             }}>
             {menu.icon}

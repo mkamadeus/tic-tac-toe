@@ -9,13 +9,12 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    // aspectRatio: 1,
     padding: 5,
   },
   box: {
     width: '100%',
     height: '100%',
-    backgroundColor: '#eee',
+    backgroundColor: '#eaeaea',
     borderRadius: 10,
     flex: 1,
     alignItems: 'center',
@@ -26,12 +25,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const getBoxDisplay = (value) => {
+const getBoxDisplay = (value, size) => {
   switch (value) {
     case 1:
-      return <Cross width={50} height={50} />;
+      return <Cross width={size} height={size} />;
     case 2:
-      return <Nought width={50} height={50} />;
+      return <Nought width={size} height={size} />;
     default:
       return null;
   }
@@ -40,7 +39,7 @@ const getBoxDisplay = (value) => {
 const TicTacToeBox = (props) => {
   return (
     <View style={styles.boxContainer} onTouchEnd={props.onTouch}>
-      <View style={styles.box}>{getBoxDisplay(props.value)}</View>
+      <View style={styles.box}>{getBoxDisplay(props.value, props.size)}</View>
     </View>
   );
 };

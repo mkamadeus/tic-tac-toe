@@ -10,17 +10,6 @@ const useConfirmationModal = () => {
     func: () => {},
   });
 
-  // const showConfirmationModal = (newMessage, lFunction, rFunction) => {
-  //   setMessage(newMessage);
-  //   setLeftButtonFunction(lFunction);
-  //   setRightButtonFunction(rFunction);
-  //   // setVisible(true);
-  // };
-
-  // const hideConfirmationModal = () => {
-  //   // setVisible(false);
-  // };
-
   return [
     visible,
     setVisible,

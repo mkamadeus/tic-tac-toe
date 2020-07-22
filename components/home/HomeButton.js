@@ -2,12 +2,13 @@ import React from 'react';
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 const HomeButton = (props) => {
-  const {onPress, bgcolor} = props;
+  const {onPress, bgcolor, disabled} = props;
 
   return (
     <TouchableOpacity
       style={{...styles.buttonContainer, backgroundColor: bgcolor}}
-      onPress={onPress}>
+      onPress={onPress}
+      disabled={disabled}>
       <Text style={styles.buttonLabel}>{props.children}</Text>
     </TouchableOpacity>
   );

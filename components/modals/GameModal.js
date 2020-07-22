@@ -5,33 +5,71 @@ import BaseModal from './BaseModal';
 import Board3x3 from '../../assets/3x3.svg';
 import Board4x4 from '../../assets/4x4.svg';
 import Board5x5 from '../../assets/5x5.svg';
+import {TicketContext} from '../../context/TicketContext';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 
 const GameModal = (props) => {
-  const {visible, setVisible, navigation} = props;
+  const {visible, setVisible} = props;
+  const {removeTicket} = useContext(TicketContext);
+  const navigation = useNavigation();
 
   const options = [
     {
       icon: <Board3x3 />,
-      text: '3x3',
+      text: '3x3 board',
       onPress: () => {
         setVisible(false);
-        navigation.navigate('Game', {size: 3});
+        removeTicket(1);
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              {
+                name: 'Game',
+                params: {size: 3},
+              },
+            ],
+          }),
+        );
+        // navigation.navigate('Game', {size: 3});
       },
     },
     {
       icon: <Board4x4 />,
-      text: '4x4',
+      text: '4x4 board',
       onPress: () => {
         setVisible(false);
-        navigation.navigate('Game', {size: 4});
+        removeTicket(1);
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              {
+                name: 'Game',
+                params: {size: 4},
+              },
+            ],
+          }),
+        );
       },
     },
     {
       icon: <Board5x5 />,
-      text: '5x5',
+      text: '5x5 board',
       onPress: () => {
         setVisible(false);
-        navigation.navigate('Game', {size: 5});
+        removeTicket(1);
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              {
+                name: 'Game',
+                params: {size: 5},
+              },
+            ],
+          }),
+        );
       },
     },
   ];
@@ -76,7 +114,7 @@ const BoardOptions = (props) => {
 const styles = StyleSheet.create({
   promptText: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 30,
   },
   selectionContainer: {
     width: '100%',
@@ -93,7 +131,8 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   optionText: {
-    fontSize: 16,
+    fontSize: 20,
+    textAlign: 'right',
   },
 });
 

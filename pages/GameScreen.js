@@ -8,6 +8,8 @@ import useGame from '../hooks/GameHook';
 import {BackHandler} from 'react-native';
 import ConfirmationModal from '../components/modals/ConfirmationModal';
 import useConfirmationModal from '../hooks/ConfirmationModalHook';
+import Cross from '../assets/cross.svg';
+import Nought from '../assets/nought.svg';
 
 const GameScreen = (props) => {
   const {navigation, route} = props;
@@ -24,6 +26,14 @@ const GameScreen = (props) => {
   ] = useConfirmationModal();
   const {board, turn, onTilePress, winner, resetBoard} = useGame(size);
 
+  // // Prevent user from leaving the game screen
+  // useEffect(() => {
+  //   navigation.addListener('beforeRemove', (event) => {
+  //     event.preventDefault();
+  //     return;
+  //   });
+  // }, [navigation]);
+
   useEffect(() => {
     if (winner) {
       console.log(`Player ${turn} won!`);
@@ -34,17 +44,29 @@ const GameScreen = (props) => {
   return (
     <>
       <View style={styles.container}>
-        <Text style={styles.turnText}>Player {turn} Move</Text>
-        <View style={styles.tttContainer}>
-          <TicTacToe board={board} onTilePress={onTilePress} turn={turn} />
+        <View style={styles.titleContainer}>
+          {turn === 1 ? (
+            <Cross width={40} height={40} />
+          ) : (
+            <Nought width={40} height={40} />
+          )}
+          <Text style={styles.turnText}>Player {turn} Move</Text>
         </View>
-        <MenuBar
-          setRightButtonFunction={setRightButtonFunction}
-          setLeftButtonFunction={setLeftButtonFunction}
-          setMessage={setMessage}
-          setVisible={setVisible}
-        />
+        <View style={styles.tttContainer}>
+          <TicTacToe
+            board={board}
+            onTilePress={onTilePress}
+            turn={turn}
+            size={size}
+          />
+        </View>
       </View>
+      <MenuBar
+        setRightButtonFunction={setRightButtonFunction}
+        setLeftButtonFunction={setLeftButtonFunction}
+        setMessage={setMessage}
+        setVisible={setVisible}
+      />
       <ConfirmationModal
         visible={visible}
         setVisible={setVisible}
@@ -59,7 +81,6 @@ const GameScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     padding: 20,
     marginVertical: 15,
   },
@@ -67,7 +88,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#aaaaaa',
+    color: '#000000',
+    paddingHorizontal: 10,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   tttContainer: {
     marginVertical: 20,

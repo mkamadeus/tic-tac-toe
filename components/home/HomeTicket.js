@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {StyleSheet, View, Text, Button} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import {TicketContext} from '../../context/TicketContext';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native';
@@ -8,7 +8,7 @@ import {faTicketAlt} from '@fortawesome/free-solid-svg-icons';
 
 const HomeTicket = () => {
   const navigation = useNavigation();
-  const {ticket, addTicket, removeTicket} = useContext(TicketContext);
+  const {ticket} = useContext(TicketContext);
   return (
     <View style={styles.homeTicketContainer}>
       <View style={styles.iconContainer}>
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     right: 5,
     borderRadius: 999,
     width: 110,
-    backgroundColor: 'red',
+    backgroundColor: '#5BEE9F',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontWeight: 'bold',
     color: '#fff',
-    padding: 8,
+    padding: 2,
   },
   iconContainer: {
     flex: 1,
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   ticketInfoContainer: {
     borderRadius: 999,
-    backgroundColor: '#B81515',
+    backgroundColor: '#48BB7D',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     paddingHorizontal: 5,
