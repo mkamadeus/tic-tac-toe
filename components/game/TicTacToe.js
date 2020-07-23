@@ -22,6 +22,9 @@ const TicTacToe = (props) => {
                       key={`row_${i} col_${j}`}
                       value={box}
                       size={150 / size}
+                      row={i}
+                      col={j}
+                      boardSize={size}
                       onTouch={() => {
                         onTilePress(i, j, turn);
                       }}

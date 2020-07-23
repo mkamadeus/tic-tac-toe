@@ -6,21 +6,45 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import GameButton from '../components/partials/GameButton';
 import {CommonActions} from '@react-navigation/native';
 
+const getTileState = (tile) => {
+  switch (tile) {
+    case 0:
+      return (
+        <Text style={{fontWeight: 'bold', fontSize: 96, color: '#aaaaaa'}}>
+          {':('}
+        </Text>
+      );
+    case 1:
+      return <Cross width={200} height={200} />;
+    case 2:
+      return <Nought width={200} height={200} />;
+    default:
+      return null;
+  }
+};
+
+const getWinnerText = (winner) => {
+  switch (winner) {
+    case 0:
+      return "It's a draw!";
+    case 1:
+      return 'Player 1 wins!';
+    case 2:
+      return 'Player 2 wins!';
+    default:
+      return '';
+  }
+};
+
 const WinScreen = (props) => {
   const {route, navigation} = props;
   const {winner} = route.params;
   return (
     <View style={styles.container}>
-      <View style={styles.tileContainer}>
-        {winner === 1 ? (
-          <Cross width={200} height={200} />
-        ) : (
-          <Nought width={200} height={200} />
-        )}
-      </View>
+      <View style={styles.tileContainer}>{getTileState(winner)}</View>
       <View style={styles.actionContainer}>
         <View>
-          <Text style={styles.winText}>Player {winner} won!</Text>
+          <Text style={styles.winText}>{getWinnerText(winner)}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <GameButton

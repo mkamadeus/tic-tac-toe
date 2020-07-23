@@ -25,6 +25,7 @@ const useGame = (size) => {
       if (!checkBoardStatus(size)) {
         // If there is no winner, check if draw, else change turn.
         if (checkDraw()) {
+          console.log('pisnagasfag');
           setWinner(0);
           return;
         }

@@ -8,6 +8,8 @@ const tickets = [
   {name: 'Twin tickets', count: 2, price: 'Rp XX.XXX'},
   {name: 'Quintuple tickets', count: 5, price: 'Rp XX.XXX'},
   {name: 'A bunch of tickets', count: 10, price: 'Rp XX.XXX'},
+  {name: 'A pack of tickets', count: 50, price: 'Rp XX.XXX'},
+  {name: 'Hundred Ticket Pack', count: 100, price: 'Rp XX.XXX'},
 ];
 
 const ShopScreen = (props) => {
@@ -43,7 +45,7 @@ const ShopScreen = (props) => {
 const styles = StyleSheet.create({
   shopContainer: {
     flex: 1,
-    padding: 10,
+    padding: 5,
     // backgroundColor: 'red',
   },
   shopHeader: {

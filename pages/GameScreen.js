@@ -35,7 +35,7 @@ const GameScreen = (props) => {
   // }, [navigation]);
 
   useEffect(() => {
-    if (winner) {
+    if (winner === 1 || winner === 2 || winner === 0) {
       console.log(`Player ${turn} won!`);
       navigation.navigate('Win', {winner});
     }

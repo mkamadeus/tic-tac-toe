@@ -25,7 +25,7 @@ const ShopItem = (props) => {
 const styles = StyleSheet.create({
   shopItemContainer: {
     flexDirection: 'row',
-    padding: 10,
+    padding: 5,
   },
   itemName: {
     fontSize: 20,

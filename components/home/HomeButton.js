@@ -1,5 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+} from 'react-native';
 
 const HomeButton = (props) => {
   const {onPress, bgcolor, disabled} = props;
@@ -8,7 +13,9 @@ const HomeButton = (props) => {
     <TouchableOpacity
       style={{...styles.buttonContainer, backgroundColor: bgcolor}}
       onPress={onPress}
-      disabled={disabled}>
+      disabled={disabled}
+      // background={TouchableNativeFeedback.Ripple('red', false)}
+    >
       <Text style={styles.buttonLabel}>{props.children}</Text>
     </TouchableOpacity>
   );

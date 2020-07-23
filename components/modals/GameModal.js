@@ -78,19 +78,21 @@ const GameModal = (props) => {
     <BaseModal visible={visible} setVisible={setVisible}>
       <View>
         <Text style={styles.promptText}>Select board size:</Text>
-        {options.map((option) => {
-          return (
-            <View
-              style={styles.selectionContainer}
-              key={`${option.text}_option`}>
-              <BoardOptions
-                board={option.icon}
-                text={option.text}
-                onPress={option.onPress}
-              />
-            </View>
-          );
-        })}
+        <View style={styles.options}>
+          {options.map((option) => {
+            return (
+              <View
+                style={styles.selectionContainer}
+                key={`${option.text}_option`}>
+                <BoardOptions
+                  board={option.icon}
+                  text={option.text}
+                  onPress={option.onPress}
+                />
+              </View>
+            );
+          })}
+        </View>
       </View>
     </BaseModal>
   );
@@ -115,6 +117,7 @@ const styles = StyleSheet.create({
   promptText: {
     fontWeight: 'bold',
     fontSize: 30,
+    marginHorizontal: 10,
   },
   selectionContainer: {
     width: '100%',
@@ -133,6 +136,9 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 20,
     textAlign: 'right',
+  },
+  options: {
+    marginTop: 20,
   },
 });
 

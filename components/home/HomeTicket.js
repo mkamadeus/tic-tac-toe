@@ -31,8 +31,8 @@ const HomeTicket = () => {
 const styles = StyleSheet.create({
   homeTicketContainer: {
     position: 'absolute',
-    top: 5,
-    right: 5,
+    top: 20,
+    right: 10,
     borderRadius: 999,
     width: 110,
     backgroundColor: '#5BEE9F',
