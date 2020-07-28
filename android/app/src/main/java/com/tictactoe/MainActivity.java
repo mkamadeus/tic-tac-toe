@@ -1,4 +1,4 @@
-package com.tictactoe;
+package com.mkamadeus.tictactoe;
 
 import com.facebook.react.ReactActivity;
 

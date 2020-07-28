@@ -35,12 +35,12 @@ android_library(
 
 android_build_config(
     name = "build_config",
-    package = "com.tictactoe",
+    package = "com.mkamadeus.tictactoe",
 )
 
 android_resource(
     name = "res",
-    package = "com.tictactoe",
+    package = "com.mkamadeus.tictactoe",
     res = "src/main/res",
 )
 
