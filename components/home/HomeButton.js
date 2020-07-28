@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  TouchableNativeFeedback,
 } from 'react-native';
 
 const HomeButton = (props) => {

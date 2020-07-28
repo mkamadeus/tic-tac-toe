@@ -1,6 +1,6 @@
 {
   "name": "TicTacToe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -33,6 +33,7 @@
     "babel-jest": "^26.1.0",
     "eslint": "^7.4.0",
     "jest": "^26.1.0",
+    "jetifier": "^1.6.6",
     "metro-react-native-babel-preset": "^0.60.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-test-renderer": "16.13.1"

@@ -1,7 +1,21 @@
-import React, {useContext} from 'react';
-import {View, StyleSheet, FlatList, Text} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  Platform,
+  Alert,
+  Button,
+} from 'react-native';
 import ShopItem from '../components/shop/ShopItem';
 import {TicketContext} from '../context/TicketContext';
+import {
+  requestSubscription,
+  getProducts,
+  initConnection,
+} from 'react-native-iap';
+import {useIap} from '../context/IapContext';
 
 const tickets = [
   {name: 'One ticket', count: 1, price: 'Rp XX.XXX'},
@@ -12,13 +26,40 @@ const tickets = [
   {name: 'Hundred Ticket Pack', count: 100, price: 'Rp XX.XXX'},
 ];
 
+const itemSkus = Platform.select({
+  android: ['storeticket_0'],
+});
+
 const ShopScreen = (props) => {
   const {navigation} = props;
   const {addTicket} = useContext(TicketContext);
+  const {processing, setProcessing} = useIap();
+
+  const handleSubscription = async () => {
+    try {
+      setProcessing(true);
+      await initConnection()
+        .then(async (conn) => {
+          return await getProducts(itemSkus);
+          // conso
+        })
+        .then((test) => {
+          console.log(test);
+        });
+      await requestSubscription('storeticket_0', false);
+    } catch (err) {
+      setProcessing(false);
+    }
+  };
 
   return (
     <View style={styles.shopContainer}>
       <View style={styles.contentContainer}>
+        <Button
+          title="test"
+          disabled={processing}
+          onPress={() => handleSubscription()}
+        />
         <FlatList
           data={tickets}
           renderItem={({item}) => {
