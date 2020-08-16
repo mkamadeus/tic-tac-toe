@@ -8,7 +8,7 @@ const useTicket = () => {
   useEffect(() => {
     const getStorage = async () => {
       await getItem().then((data) => {
-        if (data) {
+        if (parseInt(data)) {
           setTicket(data);
         }
         return;

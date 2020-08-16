@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState, useCallback} from 'react';
 import {
   View,
   StyleSheet,
@@ -10,67 +10,111 @@ import {
 } from 'react-native';
 import ShopItem from '../components/shop/ShopItem';
 import {TicketContext} from '../context/TicketContext';
-import {
+import RNIap, {
   requestSubscription,
   getProducts,
   initConnection,
+  consumeAllItemsAndroid,
+  purchaseUpdatedListener,
+  purchaseErrorListener,
+  getAvailablePurchases,
 } from 'react-native-iap';
 import {useIap} from '../context/IapContext';
 
-const tickets = [
-  {name: 'One ticket', count: 1, price: 'Rp XX.XXX'},
-  {name: 'Twin tickets', count: 2, price: 'Rp XX.XXX'},
-  {name: 'Quintuple tickets', count: 5, price: 'Rp XX.XXX'},
-  {name: 'A bunch of tickets', count: 10, price: 'Rp XX.XXX'},
-  {name: 'A pack of tickets', count: 50, price: 'Rp XX.XXX'},
-  {name: 'Hundred Ticket Pack', count: 100, price: 'Rp XX.XXX'},
-];
+const tickets = {
+  storeticket_0: {name: 'One ticket', count: 1},
+  storeticket_1: {name: 'Twin tickets', count: 2},
+  storeticket_2: {name: 'Quintuple tickets', count: 5},
+  storeticket_3: {name: 'A bunch of tickets', count: 10},
+  storeticket_4: {name: 'A pack of tickets', count: 50},
+  storeticket_5: {name: 'Hundred Ticket Pack', count: 100},
+};
 
 const itemSkus = Platform.select({
-  android: ['storeticket_0'],
+  android: [
+    'storeticket_0',
+    'storeticket_1',
+    'storeticket_2',
+    'storeticket_3',
+    'storeticket_4',
+    'storeticket_5',
+  ],
 });
 
 const ShopScreen = (props) => {
   const {navigation} = props;
   const {addTicket} = useContext(TicketContext);
-  const {processing, setProcessing} = useIap();
+  const [processing, setProcessing] = useState();
+  const [products, setProducts] = useState([]);
+  const [purchaseUpdate, setPurchaseUpdate] = useState(null);
+  const [purchaseError, setPurchaseError] = useState(null);
 
-  const handleSubscription = async () => {
-    try {
-      setProcessing(true);
-      await initConnection()
-        .then(async (conn) => {
-          return await getProducts(itemSkus);
-          // conso
-        })
-        .then((test) => {
-          console.log(test);
+  const handleProducts = useCallback(async () => {
+    setProcessing(true);
+
+    await initConnection()
+      .then(async (conn) => {
+        console.log(conn);
+        // await consumeAllItemsAndroid();
+        return await getProducts(itemSkus);
+      })
+      .then((products) => {
+        products.map((value) => {
+          return console.log(value);
         });
-      await requestSubscription('storeticket_0', false);
-    } catch (err) {
-      setProcessing(false);
-    }
+        setProducts(products);
+        setProcessing(false);
+      });
+  }, [setProcessing]);
+
+  // const handlePurchaseListener = useCallback(() => {
+  //   setPurchaseUpdate((purchase) => {
+  //     console.log('purchaseUpdatedListener', purchase);
+  //     const receipt = purchase.transactionReceipt;
+  //     if(receipt) {
+
+  //     }
+  //   });
+  // });
+
+  useEffect(() => {
+    handleProducts();
+    consumeAllItemsAndroid();
+  }, [handleProducts]);
+
+  const purchase = (productId) => {
+    RNIap.requestPurchase(productId);
   };
+
+  console.log(getAvailablePurchases());
 
   return (
     <View style={styles.shopContainer}>
       <View style={styles.contentContainer}>
-        <Button
+        {/* <Button
           title="test"
           disabled={processing}
-          onPress={() => handleSubscription()}
-        />
+          onPress={() => handleProducts()}
+        /> */}
         <FlatList
-          data={tickets}
+          data={products}
           renderItem={({item}) => {
             return (
               <View style={styles.shopItemContainer}>
                 <ShopItem
-                  name={item.name}
-                  count={item.count}
-                  price={item.price}
-                  onPress={() => {
-                    addTicket(item.count);
+                  name={tickets[item.productId].name}
+                  count={tickets[item.productId].count}
+                  price={item.localizedPrice}
+                  onPress={async () => {
+                    await RNIap.requestPurchase(item.productId)
+                      .then(async (response) => {
+                        console.log('Success', response);
+                        addTicket(tickets[item.productId].count);
+                        await consumeAllItemsAndroid();
+                      })
+                      .catch((err) => {
+                        console.log('Fails', err);
+                      });
                   }}
                 />
               </View>
