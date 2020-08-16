@@ -91,11 +91,6 @@ const ShopScreen = (props) => {
   return (
     <View style={styles.shopContainer}>
       <View style={styles.contentContainer}>
-        {/* <Button
-          title="test"
-          disabled={processing}
-          onPress={() => handleProducts()}
-        /> */}
         <FlatList
           data={products}
           renderItem={({item}) => {

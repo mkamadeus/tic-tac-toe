@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 
 const HomeButton = (props) => {
   const {onPress, bgcolor, disabled} = props;
@@ -22,12 +18,12 @@ const HomeButton = (props) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    padding: 20,
-    borderRadius: 999,
+    padding: 15,
+    borderRadius: 5,
   },
   buttonLabel: {
+    fontFamily: 'Nunito-ExtraBold',
     textAlign: 'center',
-    fontWeight: 'bold',
     fontSize: 20,
     color: '#FFFFFF',
   },
