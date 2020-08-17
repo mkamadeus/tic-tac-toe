@@ -57,11 +57,12 @@ const styles = StyleSheet.create({
   modalHeader: {
     flexDirection: 'column',
     alignItems: 'flex-end',
-    padding: 15,
-    paddingBottom: 0,
+    paddingHorizontal: 15,
+    paddingTop: 15,
   },
   modalContent: {
     padding: 20,
+    paddingTop: 0,
   },
 });
 

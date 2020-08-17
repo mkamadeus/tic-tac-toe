@@ -16,7 +16,7 @@ const GameModal = (props) => {
   const options = [
     {
       icon: <Board3x3 />,
-      text: '3x3 board',
+      text: '3x3',
       onPress: () => {
         setVisible(false);
         removeTicket(1);
@@ -36,7 +36,7 @@ const GameModal = (props) => {
     },
     {
       icon: <Board4x4 />,
-      text: '4x4 board',
+      text: '4x4',
       onPress: () => {
         setVisible(false);
         removeTicket(1);
@@ -55,7 +55,7 @@ const GameModal = (props) => {
     },
     {
       icon: <Board5x5 />,
-      text: '5x5 board',
+      text: '5x5',
       onPress: () => {
         setVisible(false);
         removeTicket(1);
@@ -78,18 +78,16 @@ const GameModal = (props) => {
     <BaseModal visible={visible} setVisible={setVisible}>
       <View>
         <Text style={styles.promptText}>Select board size:</Text>
+        <Text style={styles.noteText}>One ticket will be used.</Text>
         <View style={styles.options}>
           {options.map((option) => {
             return (
-              <View
-                style={styles.selectionContainer}
-                key={`${option.text}_option`}>
-                <BoardOptions
-                  board={option.icon}
-                  text={option.text}
-                  onPress={option.onPress}
-                />
-              </View>
+              <BoardOptions
+                board={option.icon}
+                text={option.text}
+                onPress={option.onPress}
+                key={`${option.text}_option`}
+              />
             );
           })}
         </View>
@@ -102,12 +100,9 @@ const BoardOptions = (props) => {
   const {onPress, board, text} = props;
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.option}>
-        <View style={styles.optionContainer}>{board}</View>
-        <View style={styles.optionTextContainer}>
-          <Text style={styles.optionText}>{text}</Text>
-        </View>
+    <TouchableOpacity onPress={onPress} style={styles.option}>
+      <View style={styles.optionTextContainer}>
+        <Text style={styles.optionText}>{text}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -115,30 +110,43 @@ const BoardOptions = (props) => {
 
 const styles = StyleSheet.create({
   promptText: {
-    fontWeight: 'bold',
+    fontFamily: 'Nunito-Bold',
     fontSize: 30,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
+  },
+  noteText: {
+    fontFamily: 'Nunito-Light',
   },
   selectionContainer: {
-    width: '100%',
-    padding: 5,
+    // width: '100%',
+    // padding: 5,
   },
   optionContainer: {
-    padding: 5,
+    // padding: 5,
   },
   option: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
+    flex: 1,
     alignItems: 'center',
+    backgroundColor: '#eee',
+    borderWidth: 0.75,
+    borderColor: '#ccc',
+    borderRadius: 3,
+    elevation: 3,
+    margin: 4,
   },
   optionTextContainer: {
-    padding: 5,
+    paddingVertical: 5,
   },
   optionText: {
+    fontFamily: 'Nunito-Bold',
     fontSize: 20,
     textAlign: 'right',
   },
   options: {
     marginTop: 20,
+    flexDirection: 'row',
+    padding: 4,
   },
 });
 
