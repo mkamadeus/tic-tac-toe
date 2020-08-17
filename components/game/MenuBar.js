@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, BackHandler} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 // import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
@@ -57,7 +57,7 @@ const MenuBar = (props) => {
         'By quitting the game, your game will not be saved and the tickets will not be returned. Are you sure?',
       rightButtonFunction: {
         func: function () {
-          navigation.navigate('Shop');
+          BackHandler.exitApp();
         },
       },
     },

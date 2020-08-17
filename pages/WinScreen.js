@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   tileContainer: {
-    flex: 1,
+    flex: 2,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
   },
   winText: {
     fontSize: 36,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
+    fontFamily: 'Nunito-ExtraBold',
     textAlign: 'center',
   },
   actionContainer: {
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '100%',
-    marginTop: 10,
+    marginTop: 20,
   },
 });
 

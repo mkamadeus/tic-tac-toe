@@ -8,7 +8,7 @@ const HomeButton = (props) => {
     <TouchableOpacity
       style={{...styles.buttonContainer, backgroundColor: bgcolor}}
       onPress={onPress}
-      disabled={disabled}
+      disabled={disabled ?? false}
       // background={TouchableNativeFeedback.Ripple('red', false)}
     >
       <Text style={styles.buttonLabel}>{props.children}</Text>

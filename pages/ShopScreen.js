@@ -1,23 +1,11 @@
 import React, {useContext, useEffect, useState, useCallback} from 'react';
-import {
-  View,
-  StyleSheet,
-  FlatList,
-  Text,
-  Platform,
-  Alert,
-  Button,
-} from 'react-native';
+import {View, StyleSheet, FlatList, Platform} from 'react-native';
 import ShopItem from '../components/shop/ShopItem';
 import {TicketContext} from '../context/TicketContext';
 import RNIap, {
-  requestSubscription,
   getProducts,
   initConnection,
   consumeAllItemsAndroid,
-  purchaseUpdatedListener,
-  purchaseErrorListener,
-  getAvailablePurchases,
 } from 'react-native-iap';
 import {useIap} from '../context/IapContext';
 
@@ -42,51 +30,25 @@ const itemSkus = Platform.select({
 });
 
 const ShopScreen = (props) => {
-  const {navigation} = props;
+  // const {navigation} = props;
   const {addTicket} = useContext(TicketContext);
-  const [processing, setProcessing] = useState();
   const [products, setProducts] = useState([]);
-  const [purchaseUpdate, setPurchaseUpdate] = useState(null);
-  const [purchaseError, setPurchaseError] = useState(null);
 
   const handleProducts = useCallback(async () => {
-    setProcessing(true);
-
     await initConnection()
       .then(async (conn) => {
-        console.log(conn);
-        // await consumeAllItemsAndroid();
+        // console.log(conn);r
         return await getProducts(itemSkus);
       })
       .then((products) => {
-        products.map((value) => {
-          return console.log(value);
-        });
         setProducts(products);
-        setProcessing(false);
       });
-  }, [setProcessing]);
-
-  // const handlePurchaseListener = useCallback(() => {
-  //   setPurchaseUpdate((purchase) => {
-  //     console.log('purchaseUpdatedListener', purchase);
-  //     const receipt = purchase.transactionReceipt;
-  //     if(receipt) {
-
-  //     }
-  //   });
-  // });
+  }, [setProducts]);
 
   useEffect(() => {
     handleProducts();
     consumeAllItemsAndroid();
   }, [handleProducts]);
-
-  const purchase = (productId) => {
-    RNIap.requestPurchase(productId);
-  };
-
-  console.log(getAvailablePurchases());
 
   return (
     <View style={styles.shopContainer}>
@@ -102,20 +64,24 @@ const ShopScreen = (props) => {
                   price={item.localizedPrice}
                   onPress={async () => {
                     await RNIap.requestPurchase(item.productId)
-                      .then(async (response) => {
+                      .then((response) => {
                         console.log('Success', response);
                         addTicket(tickets[item.productId].count);
-                        await consumeAllItemsAndroid();
                       })
                       .catch((err) => {
                         console.log('Fails', err);
+                      })
+                      .finally(async (err) => {
+                        await consumeAllItemsAndroid();
+                        return;
                       });
                   }}
                 />
               </View>
             );
           }}
-          keyExtractor={(item) => item.name}
+          numColumns={2}
+          keyExtractor={(item) => item.productId}
         />
       </View>
     </View>
@@ -133,7 +99,10 @@ const styles = StyleSheet.create({
     // backgroundColor: 'green',
   },
   shopItemContainer: {
-    marginTop: 5,
+    flex: 1,
+    aspectRatio: 1,
+    margin: 5,
+    // marginTop: 5,
   },
   shopTitle: {
     fontSize: 30,

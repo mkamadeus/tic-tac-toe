@@ -61,6 +61,7 @@ const HomeScreen = (props) => {
         <View style={styles.buttonContainer}>
           <HomeButton
             onPress={() => {
+              console.log('pisang');
               navigation.navigate('Shop');
             }}
             bgcolor="#FA8FFC">

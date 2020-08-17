@@ -15,12 +15,12 @@ const GameButton = (props) => {
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    padding: 20,
-    borderRadius: 999,
+    padding: 15,
+    borderRadius: 3,
   },
   buttonLabel: {
+    fontFamily: 'Nunito-ExtraBold',
     textAlign: 'center',
-    fontWeight: 'bold',
     fontSize: 20,
     color: '#FFFFFF',
   },

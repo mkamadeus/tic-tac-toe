@@ -6,16 +6,14 @@ import {faTicketAlt} from '@fortawesome/free-solid-svg-icons';
 const ShopItem = (props) => {
   const {name, count, price, onPress} = props;
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.shopItemContainer}>
+    <TouchableOpacity onPress={onPress} style={styles.shopItemContainer}>
+      <View>
         <View style={styles.iconContainer}>
-          <FontAwesomeIcon icon={faTicketAlt} size={30} color={'#FA8FFC'} />
+          <FontAwesomeIcon icon={faTicketAlt} size={50} color={'#FA8FFC'} />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.itemName}>
-            {name} ({count})
-          </Text>
-          <Text style={styles.itemCount}>{price}</Text>
+          <Text style={styles.itemName}>{name}</Text>
+          <Text style={styles.itemPrice}>{price}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -24,25 +22,40 @@ const ShopItem = (props) => {
 
 const styles = StyleSheet.create({
   shopItemContainer: {
-    flexDirection: 'row',
-    padding: 5,
+    // flexDirection: 'row',
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#eee',
+    borderRadius: 3,
+    borderColor: '#ccc',
+    borderWidth: 0.75,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
   },
   itemName: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: 'Nunito-ExtraBold',
+    textAlign: 'center',
+    // fontWeight: 'bold',
   },
-  itemCount: {
+  itemPrice: {
     color: '#aaa',
+    fontFamily: 'Nunito-LightItalic',
+    textAlign: 'center',
   },
   iconContainer: {
-    flex: 1,
-    aspectRatio: 1,
+    flex: 2,
+    // backgroundColor: 'red',
+    // aspectRatio: 1,
     justifyContent: 'center',
     alignItems: 'center',
     // padding: 2,
   },
   textContainer: {
-    flex: 4,
+    // backgroundColor: 'red',
+    justifyContent: 'center',
+    flex: 3,
     padding: 5,
   },
 });

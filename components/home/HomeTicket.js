@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     right: 10,
-    borderRadius: 999,
+    borderRadius: 3,
     width: 110,
     backgroundColor: '#5BEE9F',
     flexDirection: 'row',
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   ticketInfoContainer: {
-    borderRadius: 999,
+    borderRadius: 3,
     backgroundColor: '#48BB7D',
     flexDirection: 'row',
     justifyContent: 'space-evenly',

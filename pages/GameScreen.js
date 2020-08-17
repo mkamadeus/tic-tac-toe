@@ -45,11 +45,13 @@ const GameScreen = (props) => {
     <>
       <View style={styles.container}>
         <View style={styles.titleContainer}>
-          {turn === 1 ? (
-            <Cross width={40} height={40} />
-          ) : (
-            <Nought width={40} height={40} />
-          )}
+          <View style={styles.iconContainer}>
+            {turn === 1 ? (
+              <Cross width={40} height={40} />
+            ) : (
+              <Nought width={40} height={40} />
+            )}
+          </View>
           <Text style={styles.turnText}>Player {turn} Move</Text>
         </View>
         <View style={styles.tttContainer}>
@@ -85,8 +87,9 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   turnText: {
+    fontFamily: 'Nunito-ExtraBold',
     fontSize: 30,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     textAlign: 'center',
     color: '#000000',
     paddingHorizontal: 10,
@@ -107,6 +110,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     textAlign: 'center',
     textAlignVertical: 'center',
+  },
+  iconContainer: {
+    marginHorizontal: 5,
   },
 });
 

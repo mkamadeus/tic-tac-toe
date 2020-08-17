@@ -10,7 +10,7 @@ const ConfirmationModal = (props) => {
     <BaseModal visible={visible} setVisible={setVisible}>
       <View>
         <View style={styles.promptContainer}>
-          <Text>{message}</Text>
+          <Text style={styles.promptText}>{message}</Text>
         </View>
         <View style={styles.buttonContainer}>
           <ModalButton
@@ -40,6 +40,9 @@ const ConfirmationModal = (props) => {
 const styles = StyleSheet.create({
   promptContainer: {
     padding: 10,
+  },
+  promptText: {
+    fontFamily: 'Nunito-Regular',
   },
   buttonContainer: {
     justifyContent: 'space-evenly',
