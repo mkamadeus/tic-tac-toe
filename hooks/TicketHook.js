@@ -3,7 +3,7 @@ import {useAsyncStorage} from '@react-native-community/async-storage';
 
 const useTicket = () => {
   const {getItem, setItem} = useAsyncStorage('ticket');
-  const [ticket, setTicket] = useState('0');
+  const [ticket, setTicket] = useState('10');
 
   useEffect(() => {
     const getStorage = async () => {

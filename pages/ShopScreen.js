@@ -7,25 +7,24 @@ import RNIap, {
   initConnection,
   consumeAllItemsAndroid,
 } from 'react-native-iap';
-import {useIap} from '../context/IapContext';
 
 const tickets = {
-  storeticket_0: {name: 'One ticket', count: 1},
-  storeticket_1: {name: 'Twin tickets', count: 2},
-  storeticket_2: {name: 'Quintuple tickets', count: 5},
-  storeticket_3: {name: 'A bunch of tickets', count: 10},
-  storeticket_4: {name: 'A pack of tickets', count: 50},
-  storeticket_5: {name: 'Hundred Ticket Pack', count: 100},
+  'com.mkamadeus.item0': {name: 'Five tickets', count: 5},
+  'com.mkamadeus.item1': {name: 'Ten tickets', count: 10},
+  'com.mkamadeus.item3': {name: 'Twenty five tickets', count: 25},
+  'com.mkamadeus.item4': {name: 'Sixty tickets', count: 60},
+  // storeticket_4: {name: 'A pack of tickets', count: 50},
+  // storeticket_5: {name: 'Hundred Ticket Pack', count: 100},
 };
 
 const itemSkus = Platform.select({
   android: [
-    'storeticket_0',
-    'storeticket_1',
-    'storeticket_2',
-    'storeticket_3',
-    'storeticket_4',
-    'storeticket_5',
+    'com.mkamadeus.item0',
+    'com.mkamadeus.item1',
+    'com.mkamadeus.item3',
+    'com.mkamadeus.item4',
+    // 'storeticket_4',
+    // 'storeticket_5',
   ],
 });
 

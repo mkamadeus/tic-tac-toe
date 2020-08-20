@@ -6,7 +6,10 @@ const HomeButton = (props) => {
 
   return (
     <TouchableOpacity
-      style={{...styles.buttonContainer, backgroundColor: bgcolor}}
+      style={{
+        ...styles.buttonContainer,
+        backgroundColor: bgcolor,
+      }}
       onPress={onPress}
       disabled={disabled ?? false}
       // background={TouchableNativeFeedback.Ripple('red', false)}
